@@ -1,11 +1,10 @@
 <template>
-  <navbar/>
-  <router-view></router-view>
+
 </template>
 
 <script>
 export default {
-
+  name: "FacultyForm"
 }
 </script>
 

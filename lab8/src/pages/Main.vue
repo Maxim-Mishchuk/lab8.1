@@ -1,11 +1,10 @@
 <template>
-  <navbar/>
-  <router-view></router-view>
+  Hello!
 </template>
 
 <script>
 export default {
-
+  name: "Main"
 }
 </script>
 

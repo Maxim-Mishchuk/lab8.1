@@ -1,5 +1,15 @@
 <template>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
 
+    </tbody>
+  </table>
 </template>
 
 <script>

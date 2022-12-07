@@ -1,15 +1,33 @@
 <template>
   <form action="" method="post" @submit.prevent>
-    <input v-model="student.name" type="text" placeholder="Name">
-    <input v-model="student.email" type="email" name="" placeholder="Email">
-    <input v-model="student.phone" type="tel" name="" placeholder="Phone">
-    <select name="">
+    <input
+        v-model="student.name"
+        type="text"
+        placeholder="Name"
+    >
+    <input
+        v-model="student.email"
+        type="email"
+        name=""
+        placeholder="Email"
+    >
+    <input
+        v-model="student.phone"
+        type="tel"
+        name=""
+        placeholder="Phone"
+    >
+    <select v-model="student.group_id" name="">
       <option value="">Group</option>
       <option v-for="group in groups" value="{{ group.id }}">
         {{ group.name }}
       </option>
     </select>
-    <input type="submit" value="Add" @click="process">
+    <input
+        type="submit"
+        value="Add"
+        @click="process"
+    >
   </form>
 </template>
 

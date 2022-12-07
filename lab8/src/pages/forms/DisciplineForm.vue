@@ -1,7 +1,15 @@
 <template>
   <form action="" method="post" @submit.prevent>
-    <input type="text" placeholder="Name">
-    <input type="submit" value="Add" @click="process">
+    <input
+        type="text"
+        v-model="discipline.name"
+        placeholder="Name"
+    >
+    <input
+        type="submit"
+        value="Add"
+        @click="process"
+    >
   </form>
 </template>
 

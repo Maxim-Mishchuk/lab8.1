@@ -6,17 +6,11 @@
         type="text"
         placeholder="name"
     >
-    <select
-      v-model="department.group"
-      class="input"
-    >
-      <option
-          v-for="faculty in faculties"
-          v-bind:key="faculty.id"
-      >
-        {{faculty.name}}
+    <select v-model="department.faculty_id">
+      <option v-for="faculty in $store.state.faculties" value="{{ faculty.id }}">
+        {{faculty.short_name}}
       </option>
-  </select>
+    </select>
     <input
         autocomplete="off"
         v-model="department.short_name"
@@ -35,22 +29,19 @@
 export default {
   name: "DepartmentForm",
 
-  /*props:{
-    faculties:{
-      type: Array,
-      required: true,
-    }
-  },*/
-
   data(){
     return{
-      faculties:[{id:1, name:"First"}, {id:2, name:"Second"}, {id:3, name:"First"}, {id:4, name:"Second"}, {id:5, name:"First"}, {id:6, name:"Second"},],
       department: {
         id:'',
-        faculty:'',
+        faculty_id:'',
         name:'',
         short_name:''
       }
+    }
+  },
+  methods: {
+    process() {
+      this.$store.commit('addDepartment', this.department);
     }
   }
 }

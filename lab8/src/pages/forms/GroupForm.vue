@@ -6,15 +6,10 @@
         type="text"
         placeholder="name"
     >
-    <select
-        v-model="group.department"
-        class="input"
-    >
-      <option
-          v-for="department in departments"
-          v-bind:key="department.id"
-      >
-        {{department.name}}
+
+    <select v-model="group.department">
+      <option v-for="department in $store.state.departments" value="{{ department.id }}">
+        {{department.short_name}}
       </option> 
     </select>
 
@@ -24,6 +19,7 @@
         type="number"
         placeholder="shortName"
     >
+
     <input
         type="submit"
         value="Add"
@@ -38,21 +34,20 @@
 export default {
   name: "GroupForm",
 
-  props:{
-    departments: {
-      type:Array,
-      required:true
-    }
-  },
-
   data(){
     return{
         group:{
           id:'',
-          department:'',
+          department_id:'',
           name:'',
           course:''
         }
+    }
+  },
+
+  methods: {
+    process() {
+      this.$store.commit('addGroup', this.group);
     }
   }
 }

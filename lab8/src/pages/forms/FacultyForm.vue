@@ -32,6 +32,11 @@ export default {
         short_name:''
       }
     }
+  },
+  methods: {
+    process() {
+      this.$store.commit('addFaculty', this.faculty);
+    }
   }
 }
 </script>

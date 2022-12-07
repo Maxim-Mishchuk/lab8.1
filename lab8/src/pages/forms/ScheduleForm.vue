@@ -4,7 +4,21 @@
 
 <script>
 export default {
-  name: "ScheduleForm"
+  name: "ScheduleForm",
+
+  data() {
+    return {
+      schedule: {
+
+      }
+    }
+  },
+
+  methods: {
+    process() {
+      this.$store.commit('addSchedule', this.schedule);
+    }
+  }
 }
 </script>
 

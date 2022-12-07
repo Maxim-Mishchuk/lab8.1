@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     process() {
-      this.$emit("addDiscipline", this.discipline)
+     this.$store.commit('addDiscipline', this.discipline);
     }
   }
 }

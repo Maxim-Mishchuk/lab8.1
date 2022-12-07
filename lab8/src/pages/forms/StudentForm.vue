@@ -19,7 +19,7 @@
     >
     <select v-model="student.group_id" name="">
       <option value="">Group</option>
-      <option v-for="group in groups" value="{{ group.id }}">
+      <option v-for="group in $store.state.groups" value="{{ group.id }}">
         {{ group.name }}
       </option>
     </select>
@@ -34,12 +34,6 @@
 <script>
 export default {
   name: "StudentForm",
-  props: {
-    groups: {
-      type: Array,
-      required: true
-    }
-  },
   data() {
     return {
       student: {
@@ -52,7 +46,7 @@ export default {
   },
   methods: {
     process() {
-      this.$emit("addStudent", this.student)
+      this.$store.commit('addStudent', this.student);
     }
   }
 }

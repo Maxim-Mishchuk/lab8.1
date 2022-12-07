@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     process() {
-      this.$emit("addTeacher", this.teacher);
+      this.$store.commit('addTeacher', this.teacher);
     }
   }
 }

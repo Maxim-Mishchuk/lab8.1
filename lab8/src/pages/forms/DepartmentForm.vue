@@ -7,7 +7,10 @@
         placeholder="name"
     >
     <select v-model="department.faculty_id">
-      <option v-for="faculty in $store.state.faculties" value="{{ faculty.id }}">
+      <option
+          v-for="faculty in $store.state.faculties"
+          :value="faculty.id"
+      >
         {{faculty.short_name}}
       </option>
     </select>
@@ -32,7 +35,6 @@ export default {
   data(){
     return{
       department: {
-        id:'',
         faculty_id:'',
         name:'',
         short_name:''

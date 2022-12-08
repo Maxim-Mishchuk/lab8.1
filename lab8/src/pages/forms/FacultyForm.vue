@@ -27,7 +27,6 @@ export default {
   data(){
     return{
       faculty:{
-        id:'',
         name:'',
         short_name:''
       }

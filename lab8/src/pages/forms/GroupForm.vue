@@ -8,7 +8,10 @@
     >
 
     <select v-model="group.department">
-      <option v-for="department in $store.state.departments" value="{{ department.id }}">
+      <option
+          v-for="department in $store.state.departments"
+          :value="department.id"
+      >
         {{department.short_name}}
       </option> 
     </select>
@@ -17,7 +20,7 @@
         autocomplete="off"
         v-model="group.course"
         type="number"
-        placeholder="shortName"
+        placeholder="Course"
     >
 
     <input
@@ -37,7 +40,6 @@ export default {
   data(){
     return{
         group:{
-          id:'',
           department_id:'',
           name:'',
           course:''

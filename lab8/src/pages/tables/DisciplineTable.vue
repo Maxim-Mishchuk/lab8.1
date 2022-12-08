@@ -7,7 +7,10 @@
       </tr>
     </thead>
     <tbody>
-
+      <tr v-for="discipline in $store.state.disciplines">
+        <td>{{ discipline.id }}</td>
+        <td>{{ discipline.name }}</td>
+      </tr>
     </tbody>
   </table>
 </template>

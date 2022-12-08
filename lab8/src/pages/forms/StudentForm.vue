@@ -19,7 +19,10 @@
     >
     <select v-model="student.group_id" name="">
       <option value="">Group</option>
-      <option v-for="group in $store.state.groups" value="{{ group.id }}">
+      <option
+          v-for="group in $store.state.groups"
+          :value="group.id"
+      >
         {{ group.name }}
       </option>
     </select>

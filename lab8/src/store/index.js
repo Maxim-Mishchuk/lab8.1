@@ -1,51 +1,22 @@
 import {createStore} from "vuex";
+import {facultiesModule} from "@/store/modules/facultiesModule";
+import {departmentsModule} from "@/store/modules/departmentsModule";
+import {groupsModule} from "@/store/modules/groupsModule";
+import {studentsModule} from "@/store/modules/studentsModule";
+import {teachersModule} from "@/store/modules/teachersModule";
+import {disciplinesModule} from "@/store/modules/disciplinesModule";
+import {schedulesModule} from "@/store/modules/schedulesModule";
 
 export default createStore({
-    state: {
-        faculties: [],
-        departments: [],
-        groups: [],
-        students: [],
+    modules: {
+        faculties: facultiesModule,
+        departments: departmentsModule,
+        groups: groupsModule,
+        students: studentsModule,
 
-        teachers: [],
-        disciplines: [],
+        teachers: teachersModule,
+        disciplines: disciplinesModule,
 
-        schedules: []
+        schedules: schedulesModule
     },
-    mutations: {
-        addFaculty(state, faculty) {
-            faculty.id = state.faculties.length;
-            state.faculties.push(faculty);
-        },
-
-        addDepartment(state, department) {
-            department.id = state.departments.length;
-            state.departments.push(department);
-        },
-
-        addGroup(state, group) {
-            group.id = state.groups.length;
-            state.groups.push(group);
-        },
-
-        addStudent(state, student) {
-              student.id = state.students.length;
-              state.students.push(student);
-        },
-
-        addTeacher(state, teacher) {
-            teacher.id = state.teachers.length;
-            state.teachers.push(teacher);
-        },
-
-        addDiscipline(state, discipline) {
-            discipline.id = state.disciplines.length;
-            state.disciplines.push(discipline);
-        },
-
-        addSchedule(state, schedule) {
-            schedule.id = state.schedules.length;
-            state.schedules.push(schedule);
-        }
-    }
 })

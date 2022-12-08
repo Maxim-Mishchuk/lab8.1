@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: "FacultyForm",
   data(){
@@ -33,8 +34,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      addFaculty: 'faculties/addFaculty',
+    }),
+
     process() {
-      this.$store.commit('addFaculty', this.faculty);
+      this.addFaculty({...this.faculty});
     }
   }
 }

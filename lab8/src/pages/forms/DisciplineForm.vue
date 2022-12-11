@@ -1,5 +1,6 @@
 <template>
   <form action="" method="post" @submit.prevent>
+    <h2>Add discipline</h2>
     <input
         type="text"
         v-model="discipline.name"
@@ -14,8 +15,10 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: "DisciplineForm",
+
   data() {
     return {
       discipline: {
@@ -23,9 +26,14 @@ export default {
       }
     }
   },
+
   methods: {
+    ...mapActions({
+      addDiscipline: 'disciplines/addDiscipline'
+    }),
+
     process() {
-     this.$store.commit('addDiscipline', this.discipline);
+     this.addDiscipline({...this.discipline});
     }
   }
 }

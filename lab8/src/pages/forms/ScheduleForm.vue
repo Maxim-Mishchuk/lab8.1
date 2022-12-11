@@ -1,37 +1,11 @@
 <template>
   <form action="" method="post" @submit.prevent>
+    <h2>Add schedule</h2>
     <input
         v-model="schedule.name"
         type="text"
         placeholder="Name"
     >
-
-    <select v-model="schedule.teacher_id">
-      <option
-          v-for="teacher in $store.state.teachers"
-          :value="teacher.id"
-      >
-        {{ teacher.name+" "+teacher.surname }}
-      </option>
-    </select>
-
-    <select v-model="schedule.discipline_id">
-      <option
-        v-for="discipline in $store.state.disciplines"
-        :value="discipline.id"
-      >
-        {{ discipline.name }}
-      </option>
-    </select>
-
-    <select v-model="schedule.group_id">
-      <option
-        v-for="group in $store.state.groups"
-        :value="group.id"
-      >
-        {{ group.name }}
-      </option>
-    </select>
 
     <input
         v-model="schedule.time"
@@ -45,6 +19,36 @@
         placeholder="Classroom"
     >
 
+    <select v-model="schedule.teacher_id">
+      <option value="">Teacher</option>
+      <option
+          v-for="teacher in teachers"
+          :value="teacher.id"
+      >
+        {{ teacher.name+" "+teacher.surname }}
+      </option>
+    </select>
+
+    <select v-model="schedule.discipline_id">
+      <option value="">Discipline</option>
+      <option
+          v-for="discipline in disciplines"
+          :value="discipline.id"
+      >
+        {{ discipline.name }}
+      </option>
+    </select>
+
+    <select v-model="schedule.group_id">
+      <option value="">Group</option>
+      <option
+          v-for="group in groups"
+          :value="group.id"
+      >
+        {{ group.name }}
+      </option>
+    </select>
+
     <input
         type="submit"
         value="Add"
@@ -54,6 +58,7 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
 export default {
   name: "ScheduleForm",
 
@@ -70,9 +75,21 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      teachers: state => state.teachers.teachers,
+      disciplines: state => state.disciplines.disciplines,
+      groups: state => state.groups.groups
+    })
+  },
+
   methods: {
+    ...mapActions({
+      addSchedule: 'schedules/addSchedule'
+    }),
+
     process() {
-      this.$store.commit('addSchedule', this.schedule);
+      this.addSchedule({...this.schedule});
     }
   }
 }

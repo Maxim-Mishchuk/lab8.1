@@ -27,7 +27,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapState} from 'vuex';
 export default {
   name: "FacultyTable",
   components: {
@@ -57,9 +57,11 @@ export default {
         this.checkedFaculties = this.checkedFaculties.filter(current_id => current_id !== event_id);
       }
     },
+
     processAction(actionToDo) {
       this.actionToDo = actionToDo
     },
+
     process() {
       if (this.actionToDo === 'delete') {
         this.deleteCheckedFaculties(this.checkedFaculties);

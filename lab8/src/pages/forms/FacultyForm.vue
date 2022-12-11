@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent>
+    <h2>Add faculty</h2>
     <input
       autocomplete="off"
       v-model="faculty.name"

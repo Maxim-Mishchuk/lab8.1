@@ -2,6 +2,11 @@ export const disciplinesModule = {
     state: () => ({
         disciplines: []
     }),
+    getters: {
+        getDisciplineByID(state, id) {
+
+        }
+    },
     mutations: {
         addDiscipline(state, discipline) {
             let id;
@@ -13,8 +18,25 @@ export const disciplinesModule = {
             discipline.id = id;
             state.disciplines.push(discipline);
         },
+
+        deleteCheckedDisciplines(state, checkedIDs) {
+            checkedIDs = checkedIDs.map(id => parseInt(id));
+            state.disciplines = state.disciplines
+                .filter(discipline => !checkedIDs.includes(discipline.id));
+        },
+
+        editDisciplineByID(state, discipline, id) {
+
+        }
     },
     actions: {
+        addDiscipline({ commit }, discipline) {
+            commit('addDiscipline', discipline);
+        },
 
-    }
+        deleteCheckedDisciplines({ commit }, checkedIDs) {
+            commit('deleteCheckedDisciplines', checkedIDs)
+        }
+    },
+    namespaced: true
 }

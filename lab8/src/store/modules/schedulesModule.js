@@ -2,6 +2,13 @@ export const schedulesModule = {
     state: () => ({
         schedules: []
     }),
+
+    getters: {
+        getScheduleByID(state, id) {
+
+        }
+    },
+
     mutations: {
         addSchedule(state, schedule) {
             let id;
@@ -12,9 +19,26 @@ export const schedulesModule = {
             }
             schedule.id = id;
             state.schedules.push(schedule);
+        },
+
+        deleteCheckedSchedules(state, checkedIDs) {
+            checkedIDs = checkedIDs.map(id => parseInt(id));
+            state.schedules = state.schedules
+                .filter(schedule => !checkedIDs.includes(schedule.id));
+        },
+
+        editScheduleByID(state, schedule, id) {
+
         }
     },
     actions: {
+        addSchedule({ commit }, schedule) {
+            commit('addSchedule', schedule)
+        },
 
-    }
+        deleteCheckedSchedules({ commit }, checkedIDs) {
+            commit('deleteCheckedSchedules', checkedIDs);
+        }
+    },
+    namespaced: true
 }

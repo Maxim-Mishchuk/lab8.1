@@ -4,6 +4,9 @@ import Navbar from "@/components/Navbar.vue";
 import router from './router'
 import store from '@/store'
 
+import "@/assets/css/form.css";
+import '@/assets/css/table.css';
+
 const app = createApp(App)
 
 app

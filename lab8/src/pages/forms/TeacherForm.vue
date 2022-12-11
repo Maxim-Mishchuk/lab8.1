@@ -1,5 +1,6 @@
 <template>
   <form action="" method="post" @submit.prevent>
+    <h2>Add teacher</h2>
     <input
         v-model="teacher.name"
         type="text"
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name: "TeacherForm",
 
@@ -48,8 +50,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      addTeacher: 'teachers/addTeacher'
+    }),
+
     process() {
-      this.$store.commit('addTeacher', this.teacher);
+      this.addTeacher({...this.teacher})
     }
   }
 }

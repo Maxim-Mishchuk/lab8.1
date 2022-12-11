@@ -1,25 +1,27 @@
 <template>
   <form @submit.prevent>
+    <h2>Add department</h2>
     <input
         autocomplete="off"
         v-model="department.name"
         type="text"
         placeholder="name"
     >
-    <select v-model="department.faculty_id">
-      <option
-          v-for="faculty in $store.state.faculties"
-          :value="faculty.id"
-      >
-        {{faculty.short_name}}
-      </option>
-    </select>
     <input
         autocomplete="off"
         v-model="department.short_name"
         type="text"
         placeholder="shortName"
     >
+    <select v-model="department.faculty_id">
+      <option value="">Faculty</option>
+      <option
+          v-for="faculty in faculties"
+          :value="faculty.id"
+      >
+        {{faculty.short_name}}
+      </option>
+    </select>
     <input
         type="submit"
         value="Add"
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
 export default {
   name: "DepartmentForm",
 
@@ -41,9 +44,20 @@ export default {
       }
     }
   },
+
+  computed: {
+    ...mapState({
+      faculties: state => state.faculties.faculties
+    })
+  },
+
   methods: {
+    ...mapActions({
+      addDepartment: 'departments/addDepartment'
+    }),
+
     process() {
-      this.$store.commit('addDepartment', this.department);
+      this.addDepartment({...this.department});
     }
   }
 }

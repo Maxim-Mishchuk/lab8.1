@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent>
+    <h2>Add group</h2>
     <input
         autocomplete="off"
         v-model="group.name"
@@ -7,21 +8,22 @@
         placeholder="name"
     >
 
-    <select v-model="group.department">
-      <option
-          v-for="department in $store.state.departments"
-          :value="department.id"
-      >
-        {{department.short_name}}
-      </option> 
-    </select>
-
     <input
         autocomplete="off"
         v-model="group.course"
         type="number"
         placeholder="Course"
     >
+
+    <select v-model="group.department_id">
+      <option value="">Department</option>
+      <option
+          v-for="department in departments"
+          :value="department.id"
+      >
+        {{department.short_name}}
+      </option>
+    </select>
 
     <input
         type="submit"
@@ -34,6 +36,7 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
 export default {
   name: "GroupForm",
 
@@ -47,9 +50,19 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      departments: state => state.departments.departments
+    })
+  },
+
   methods: {
+    ...mapActions({
+      addGroup: 'groups/addGroup'
+    }),
+
     process() {
-      this.$store.commit('addGroup', this.group);
+      this.addGroup({...this.group});
     }
   }
 }

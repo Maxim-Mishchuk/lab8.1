@@ -1,5 +1,6 @@
 <template>
   <form action="" method="post" @submit.prevent>
+    <h2>Add student</h2>
     <input
         v-model="student.name"
         type="text"
@@ -20,7 +21,7 @@
     <select v-model="student.group_id" name="">
       <option value="">Group</option>
       <option
-          v-for="group in $store.state.groups"
+          v-for="group in groups"
           :value="group.id"
       >
         {{ group.name }}
@@ -35,8 +36,10 @@
 </template>
 
 <script>
+import {mapActions, mapState} from 'vuex'
 export default {
   name: "StudentForm",
+
   data() {
     return {
       student: {
@@ -47,9 +50,20 @@ export default {
       }
     }
   },
+
+  computed: {
+    ...mapState({
+      groups: state => state.groups.groups
+    })
+  },
+
   methods: {
+    ...mapActions({
+      addStudent: 'students/addStudent'
+    }),
+
     process() {
-      this.$store.commit('addStudent', this.student);
+      this.addStudent({...this.student});
     }
   }
 }

@@ -2,6 +2,12 @@ export const facultiesModule = {
     state: () => ({
         faculties: []
     }),
+    getters: {
+        getFacultyByID(state, id) {
+
+        }
+    },
+
     mutations: {
         addFaculty(state, faculty) {
             let id;
@@ -14,19 +20,24 @@ export const facultiesModule = {
             state.faculties.push(faculty);
         },
 
-        deleteCheckedFaculties(state, checkedFacultiesIDs) {
-            checkedFacultiesIDs = checkedFacultiesIDs.map(id => parseInt(id));
+        deleteCheckedFaculties(state, checkedIDs) {
+            checkedIDs = checkedIDs.map(id => parseInt(id));
             state.faculties = state.faculties
-                .filter(faculty => !checkedFacultiesIDs.includes(faculty.id));
+                .filter(faculty => !checkedIDs.includes(faculty.id));
         },
+
+        editFacultyByID(state, faculty, id) {
+
+        }
     },
+
     actions: {
         addFaculty({ commit }, faculty) {
             commit('addFaculty', faculty);
         },
 
-        deleteCheckedFaculties({ commit }, checkedFacultiesIDs) {
-            commit('deleteCheckedFaculties', checkedFacultiesIDs);
+        deleteCheckedFaculties({ commit }, checkedIDs) {
+            commit('deleteCheckedFaculties', checkedIDs);
         }
     },
     namespaced: true

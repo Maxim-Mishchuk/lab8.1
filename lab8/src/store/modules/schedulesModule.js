@@ -5,7 +5,7 @@ export const schedulesModule = {
 
     getters: {
         getScheduleByID(state, id) {
-
+            return state.schedules.find(schedule => schedule.id===id)
         }
     },
 
@@ -27,7 +27,7 @@ export const schedulesModule = {
                 .filter(schedule => !checkedIDs.includes(schedule.id));
         },
 
-        editScheduleByID(state, schedule, id) {
+        editScheduleByID(state, id) {
 
         }
     },

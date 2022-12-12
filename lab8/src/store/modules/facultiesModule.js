@@ -4,7 +4,7 @@ export const facultiesModule = {
     }),
     getters: {
         getFacultyByID(state, id) {
-
+            return state.faculties.find(faculty => faculty.id===id)
         }
     },
 
@@ -26,7 +26,7 @@ export const facultiesModule = {
                 .filter(faculty => !checkedIDs.includes(faculty.id));
         },
 
-        editFacultyByID(state, faculty, id) {
+        editFacultyByID(state, id) {
 
         }
     },

@@ -16,7 +16,7 @@ import GroupTable from "@/pages/tables/GroupTable.vue";
 import ScheduleTable from "@/pages/tables/ScheduleTable.vue";
 import StudentTable from "@/pages/tables/StudentTable.vue";
 import TeacherTable from "@/pages/tables/TeacherTable.vue";
-import teacherTable from "@/pages/tables/TeacherTable.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,7 +81,7 @@ const router = createRouter({
     },
     {
       path: '/teacherTable',
-      component: teacherTable
+      component: TeacherTable
     },
   ]
 })

@@ -4,7 +4,7 @@ export const disciplinesModule = {
     }),
     getters: {
         getDisciplineByID(state, id) {
-
+            return state.disciplines.find(discipline => discipline.id===id)
         }
     },
     mutations: {
@@ -25,7 +25,7 @@ export const disciplinesModule = {
                 .filter(discipline => !checkedIDs.includes(discipline.id));
         },
 
-        editDisciplineByID(state, discipline, id) {
+        editDisciplineByID(state,  id) {
 
         }
     },

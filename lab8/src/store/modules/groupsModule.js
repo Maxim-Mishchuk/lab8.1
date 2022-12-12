@@ -5,7 +5,7 @@ export const groupsModule = {
 
     getters: {
         getGroupByID(state, id) {
-
+            return state.groups.find(group => group.id===id)
         }
     },
 
@@ -27,7 +27,7 @@ export const groupsModule = {
                 .filter(group => !checkedIDs.includes(group.id));
         },
 
-        editGroupByID(state, group, id) {
+        editGroupByID(state, id) {
 
         }
     },

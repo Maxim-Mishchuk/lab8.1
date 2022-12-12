@@ -13,10 +13,8 @@ export default createStore({
         departments: departmentsModule,
         groups: groupsModule,
         students: studentsModule,
-
         teachers: teachersModule,
         disciplines: disciplinesModule,
-
         schedules: schedulesModule
     },
 })

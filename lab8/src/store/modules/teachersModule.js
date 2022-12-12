@@ -5,7 +5,7 @@ export const teachersModule = {
 
     getters: {
         getTeacherByID(state, id) {
-
+            return state.teachers.find(teacher => teacher.id===id)
         }
     },
 
@@ -27,7 +27,7 @@ export const teachersModule = {
                 .filter(teacher => !checkedIDs.includes(teacher.id));
         },
 
-        editTeacherByID(state, teacher, id) {
+        editTeacherByID(state, id) {
 
         }
     },

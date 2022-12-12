@@ -4,7 +4,7 @@ export const departmentsModule = {
     }),
     getters: {
       getDepartmentByID(state, id) {
-
+          return state.departments.find(department => department.id===id)
       }
     },
     mutations: {
@@ -25,7 +25,7 @@ export const departmentsModule = {
                 .filter(department => !checkedIDs.includes(department.id));
         },
 
-        editDepartmentByID(state, department, id) {
+        editDepartmentByID(state, id) {
 
         }
     },

@@ -17,6 +17,15 @@ import ScheduleTable from "@/pages/tables/ScheduleTable.vue";
 import StudentTable from "@/pages/tables/StudentTable.vue";
 import TeacherTable from "@/pages/tables/TeacherTable.vue";
 
+import EditDepartment from "@/pages/editPage/EditDepartment.vue";
+import EditDiscipline from "@/pages/editPage/EditDiscipline.vue";
+import EditFaculty from "@/pages/editPage/EditFaculty.vue";
+import EditGroup from "@/pages/editPage/EditGroup.vue";
+import EditSchedule from "@/pages/editPage/EditSchedule.vue";
+import EditStudent from "@/pages/editPage/EditStudent.vue";
+import EditTeacher from "@/pages/editPage/EditTeacher.vue";
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,7 +63,6 @@ const router = createRouter({
       path: '/teacherForm',
       component: TeacherForm
     },
-
     {
       path: '/departmentTable',
       component: DepartmentTable
@@ -82,6 +90,34 @@ const router = createRouter({
     {
       path: '/teacherTable',
       component: TeacherTable
+    },
+    {
+      path: '/editDepartment',
+      component: EditDepartment
+    },
+    {
+      path: '/editDiscipline',
+      component: EditDiscipline
+    },
+    {
+      path: '/editFaculty',
+      component: EditFaculty
+    },
+    {
+      path: '/editGroup',
+      component: EditGroup
+    },
+    {
+      path: '/editSchedule',
+      component: EditSchedule
+    },
+    {
+      path: '/editStudent',
+      component: EditStudent
+    },
+    {
+      path: '/editTeacher',
+      component: EditTeacher
     },
   ]
 })

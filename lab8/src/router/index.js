@@ -27,6 +27,7 @@ import EditTeacher from "@/pages/editPage/EditTeacher.vue";
 
 
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -92,7 +93,7 @@ const router = createRouter({
       component: TeacherTable
     },
     {
-      path: '/editDepartment',
+      path: '/editDepartment/',
       component: EditDepartment
     },
     {
@@ -116,8 +117,9 @@ const router = createRouter({
       component: EditStudent
     },
     {
-      path: '/editTeacher',
-      component: EditTeacher
+      path: '/editTeacher/:id',
+      component: EditTeacher ,
+      name: 'editTeacher'
     },
   ]
 })

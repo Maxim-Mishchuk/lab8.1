@@ -4,11 +4,11 @@
 
     <router-link to="/" class="navbar-btn" >Main</router-link>
 
-    <div class="select navbar-btn">
-      <div @click="showContent">
+    <div class="select">
+      <div @click="openDropdown(0)" class="navbar-btn">
         Forms
       </div>
-      <div class="select-content">
+      <div :class="{active: isActive[0]}" class="select-content">
         <router-link class="select-content-btn" to="/facultyForm">FacultyForm</router-link>
         <router-link class="select-content-btn" to="/departmentForm">DepartmentForm</router-link>
         <router-link class="select-content-btn" to="/groupForm">GroupForm</router-link>
@@ -19,11 +19,11 @@
       </div>
     </div>
 
-    <div class="select navbar-btn">
-      <div>
+    <div class="select">
+      <div @click="openDropdown(1)" class="navbar-btn">
         Tables
       </div>
-      <div class="select-content">
+      <div :class="{active: isActive[1]}" class="select-content">
         <router-link class="select-content-btn" to="/facultyTable">FacultyTable</router-link>
         <router-link class="select-content-btn" to="/departmentTable">DepartmentTable</router-link>
         <router-link class="select-content-btn" to="/groupTable">GroupTable</router-link>
@@ -40,9 +40,21 @@
 <script>
 export default {
   name: "Navbar",
+
+  data() {
+    return {
+      isActive: [false, false]
+    }
+  },
+
   methods: {
-    showContent(event){
-      console.log(event);
+    openDropdown(num) {
+      for(let i = 0; i < this.isActive.length; i++) {
+        if (i !== num) {
+          this.isActive[i] = false;
+        }
+      }
+      this.isActive[num] = !this.isActive[num]
     }
   }
 }
@@ -78,6 +90,8 @@ export default {
 .navbar-btn {
   position: relative;
   padding: 25px;
+
+  cursor: pointer;
 }
 
 .navbar-btn::after{
@@ -103,7 +117,6 @@ export default {
 
 .select {
   position: relative;
-  padding: 25px;
 }
 
 .select-content{
@@ -142,7 +155,7 @@ export default {
   transform-origin: bottom left;
 }
 
-.select:hover .select-content {
+.active {
   display: block;
 }
 </style>

@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import Navbar from "@/components/Navbar.vue";
+import CustomSubmit from "@/components/CustomSubmit.vue";
 import router from './router'
 import store from '@/store'
 
@@ -13,4 +14,5 @@ app
     .use(router)
     .use(store)
     .component('Navbar', Navbar)
+    .component('CustomSubmit', CustomSubmit)
     .mount('#app')

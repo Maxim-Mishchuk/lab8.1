@@ -22,11 +22,8 @@
         {{faculty.short_name}}
       </option>
     </select>
-    <input
-        type="submit"
-        value="Add"
-        @click="process"
-    >
+
+    <custom-submit @click="process" value="Add"/>
   </form>
 </template>
 

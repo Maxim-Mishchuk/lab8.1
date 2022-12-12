@@ -13,11 +13,8 @@
         type="text"
         placeholder="shortName"
     >
-    <input
-        type="submit"
-        value="Add"
-        @click="process"
-    >
+
+    <custom-submit @click="process" value="Add"/>
   </form>
 
 </template>
@@ -26,6 +23,7 @@
 import { mapActions } from 'vuex'
 export default {
   name: "FacultyForm",
+
   data(){
     return{
       faculty:{

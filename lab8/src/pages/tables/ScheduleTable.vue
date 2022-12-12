@@ -29,7 +29,7 @@
   </table>
   <form action="" method="post" @submit.prevent>
     <actions-with-tables @getAction="processAction"/>
-    <input @click="process" type="submit" value="Do">
+    <custom-submit @click="process" value="Do"/>
   </form>
 </template>
 

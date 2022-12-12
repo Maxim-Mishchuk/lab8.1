@@ -6,11 +6,8 @@
         v-model="discipline.name"
         placeholder="Name"
     >
-    <input
-        type="submit"
-        value="Add"
-        @click="process"
-    >
+
+    <custom-submit @click="process" value="Add"/>
   </form>
 </template>
 

@@ -1,38 +1,33 @@
 <template>
 
-
   <form action="" method="post" @submit.prevent>
     <h2>Add teacher</h2>
     <input
-        v-model="teacher.name"
+        v-model="getTeacher.name"
         type="text"
         name=""
         placeholder="Name"
     >
     <input
-        v-model="teacher.surname"
+        v-model="getTeacher.surname"
         type="text"
         name=""
         placeholder="Surname"
     >
     <input
-        v-model="teacher.email"
+        v-model="getTeacher.email"
         type="email"
         name=""
         placeholder="Email"
     >
 
     <input
-        v-model="teacher.phone"
+        v-model="getTeacher.phone"
         type="tel"
         name=""
         placeholder="Phone"
     >
-    <input
-        type="submit"
-        value="Add"
-        @click="process"
-    >
+    <custom-submit @click="process" value="Add"/>
   </form>
 </template>
 
@@ -42,26 +37,26 @@ export default {
   name: "EditTeacher",
   data() {
     return {
-      teacher: {
-        name: '',
-        surname: '',
-        email: '',
-        phone:''
-      }
     }
   },
   computed:{
     ...mapGetters({
       getTeacherByID: 'teachers/getTeacherByID'
     }),
+    getTeacher(){
+      return this.getTeacherByID(parseInt(this.$route.params.id))
+    }
 
 
 
   },
   methods: {
-
+    ...mapActions({
+      editTeacherByID: 'teachers/editTeacherByID'
+    }),
 
     process() {
+      this.editTeacherByID({...this.getTeacher})
 
     }
   }

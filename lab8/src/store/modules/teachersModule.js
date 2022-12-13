@@ -35,7 +35,12 @@ export const teachersModule = {
                 .filter(teacher => !checkedIDs.includes(teacher.id));
         },
 
-        editTeacherByID(state, id) {
+        editTeacherByID(state, teacherForEdit) {
+            let teacher = state.teachers.find(teacher => teacher.id===teacherForEdit.id)
+            teacher.name = teacherForEdit.name
+            teacher.surname = teacherForEdit.surname
+            teacher.email = teacherForEdit.email
+            teacher.phone = teacherForEdit.phone
 
         }
     },
@@ -46,6 +51,10 @@ export const teachersModule = {
 
         deleteCheckedTeachers({ commit }, checkedIDs) {
             commit('deleteCheckedTeachers', checkedIDs)
+        },
+
+        editTeacherByID({commit}, teacherForEdit) {
+            commit('editTeacherByID', teacherForEdit)
         }
     },
     namespaced: true

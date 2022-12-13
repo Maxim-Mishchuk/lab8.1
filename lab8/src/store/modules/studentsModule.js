@@ -12,7 +12,7 @@ export const studentsModule = {
     }),
 
     getters: {
-        getStudentByID(state, id) {
+        getStudentByID: state => id=> {
             return state.students.find(student => student.id===id)
         }
     },
@@ -35,8 +35,8 @@ export const studentsModule = {
                 .filter(student => !checkedIDs.includes(student.id));
         },
 
-        editStudentByID(state, id) {
-
+        editStudentByID(state, studentForEdit) {
+            let student = state.students.find(student => student.id===studentForEdit)
         }
     },
     actions: {
@@ -47,6 +47,10 @@ export const studentsModule = {
         deleteCheckedStudents({ commit }, checkedIDs) {
             commit('deleteCheckedStudents', checkedIDs);
         }
+    },
+    editStudentByID({commit}, studentForEdit) {
+        commit('editStudentByID', studentForEdit);
+
     },
     namespaced:true
 }

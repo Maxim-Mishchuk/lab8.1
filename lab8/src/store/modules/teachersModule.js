@@ -1,10 +1,18 @@
 export const teachersModule = {
     state: () => ({
-        teachers: []
+        teachers: [
+            {
+                id:124,
+                name: 'a',
+                surname: 'a',
+                email: 'a@a',
+                phone: 'a'
+            }
+        ]
     }),
 
     getters: {
-        getTeacherByID(state, id) {
+        getTeacherByID: state => id => {
             return state.teachers.find(teacher => teacher.id===id)
         }
     },

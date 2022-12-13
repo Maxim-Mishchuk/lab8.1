@@ -14,7 +14,11 @@
         <td>{{ faculty.id }}</td>
         <td>{{ faculty.name }}</td>
         <td>{{ faculty.short_name }}</td>
-        <td>Edit</td>
+        <td><router-link :to="{ name:'editFaculty', params: {
+              id: faculty.id,
+          }}"
+                         id="button"
+        >Edit</router-link></td>
         <td><input @input="checkFaculty" type="checkbox" :value="faculty.id"></td>
       </tr>
     </tbody>

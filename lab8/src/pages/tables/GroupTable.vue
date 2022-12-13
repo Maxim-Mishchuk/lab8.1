@@ -16,7 +16,11 @@
         <td>{{ group.department_id }}</td>
         <td>{{ group.name }}</td>
         <td>{{ group.course }}</td>
-        <td>Edit</td>
+        <td><router-link :to="{ name:'editGroup', params: {
+              id: group.id,
+          }}"
+                         id="button"
+        >Edit</router-link></td>
         <td><input @input="checkGroup" type="checkbox" :value="group.id"></td>
       </tr>
     </tbody>

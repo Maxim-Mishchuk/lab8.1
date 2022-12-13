@@ -18,7 +18,11 @@
         <td>{{ student.name }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.phone }}</td>
-        <td>Edit</td>
+        <td><router-link :to="{ name:'editStudent', params: {
+              id: student.id,
+          }}"
+                         id="button"
+        >Edit</router-link></td>
         <td><input @input="checkStudent" type="checkbox" :value="student.id"></td>
       </tr>
     </tbody>

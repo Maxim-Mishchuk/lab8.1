@@ -13,7 +13,11 @@
       <tr v-for="discipline in disciplines">
         <td>{{ discipline.id }}</td>
         <td>{{ discipline.name }}</td>
-        <td>Edit</td>
+        <td><router-link :to="{ name:'editDiscipline', params: {
+              id: discipline.id,
+          }}"
+                         id="button"
+        >Edit</router-link></td>
         <td><input @input="checkDiscipline" type="checkbox" :value="discipline.id"></td>
       </tr>
     </tbody>

@@ -121,6 +121,31 @@ const router = createRouter({
       component: EditTeacher ,
       name: 'editTeacher'
     },
+    {
+      path: '/editStudent/:id',
+      component: EditStudent ,
+      name: 'editStudent'
+    },
+    {
+      path: '/editGroup/:id',
+      component: EditGroup ,
+      name: 'editGroup'
+    },
+    {
+      path: '/editFaculty/:id',
+      component: EditFaculty ,
+      name: 'editFaculty'
+    },
+    {
+      path: '/editDiscipline/:id',
+      component: EditDiscipline ,
+      name: 'editDiscipline'
+    },
+    {
+      path: '/editDepartment/:id',
+      component: EditDepartment ,
+      name: 'editDepartment'
+    },
   ]
 })
 

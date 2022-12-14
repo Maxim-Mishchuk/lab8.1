@@ -36,7 +36,11 @@ export const studentsModule = {
         },
 
         editStudentByID(state, studentForEdit) {
-            let student = state.students.find(student => student.id===studentForEdit)
+            let student = state.students.find(student => student.id===studentForEdit.id)
+            student.name=studentForEdit.name
+            student.email=studentForEdit.email
+            student.group_id=studentForEdit.group_id
+            student.phone=studentForEdit.phone
         }
     },
     actions: {
@@ -46,11 +50,11 @@ export const studentsModule = {
 
         deleteCheckedStudents({ commit }, checkedIDs) {
             commit('deleteCheckedStudents', checkedIDs);
-        }
+        },
+        editStudentByID({commit}, studentForEdit) {
+            commit('editStudentByID', studentForEdit);
+        },
     },
-    editStudentByID({commit}, studentForEdit) {
-        commit('editStudentByID', studentForEdit);
 
-    },
     namespaced:true
 }

@@ -8,7 +8,7 @@ export const disciplinesModule = {
         ]
     }),
     getters: {
-        getDisciplineByID(state, id) {
+        getDisciplineByID: state=> id=> {
             return state.disciplines.find(discipline => discipline.id===id)
         }
     },
@@ -30,8 +30,9 @@ export const disciplinesModule = {
                 .filter(discipline => !checkedIDs.includes(discipline.id));
         },
 
-        editDisciplineByID(state,  id) {
-
+        editDisciplineByID(state,  disciplineForEdit) {
+            let discipline = state.disciplines.find(discipline => discipline.id === disciplineForEdit.id)
+            discipline.name = disciplineForEdit.name
         }
     },
     actions: {
@@ -41,6 +42,10 @@ export const disciplinesModule = {
 
         deleteCheckedDisciplines({ commit }, checkedIDs) {
             commit('deleteCheckedDisciplines', checkedIDs)
+        },
+
+        editDisciplineByID({commit},  disciplineForEdit) {
+            commit('editDisciplineByID', disciplineForEdit)
         }
     },
     namespaced: true

@@ -6,12 +6,19 @@ export const groupsModule = {
                 department_id:1,
                 name:'a',
                 course:'1'
+            },
+            {
+                id:2,
+                department_id:1,
+                name:'b',
+                course:'2'
             }
+
         ]
     }),
 
     getters: {
-        getGroupByID(state, id) {
+        getGroupByID: state=> id=> {
             return state.groups.find(group => group.id===id)
         }
     },
@@ -34,7 +41,11 @@ export const groupsModule = {
                 .filter(group => !checkedIDs.includes(group.id));
         },
 
-        editGroupByID(state, id) {
+        editGroupByID(state, groupForEdit) {
+            let group = state.groups.find(group => group.id===groupForEdit.id)
+            group.name=groupForEdit.name
+            group.course=groupForEdit.course
+            group.department_id=groupForEdit.department_id
 
         }
     },
@@ -46,6 +57,9 @@ export const groupsModule = {
 
         deleteCheckedGroups({ commit }, checkedIDs) {
             commit('deleteCheckedGroups', checkedIDs);
+        },
+        editGroupByID({commit}, groupForEdit) {
+            commit('editGroupByID', groupForEdit)
         }
     },
     namespaced: true

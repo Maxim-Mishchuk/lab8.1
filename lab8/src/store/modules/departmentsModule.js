@@ -3,15 +3,24 @@ export const departmentsModule = {
         departments: [
             {
                 id:1,
-                faculty_id:'1',
+                faculty_id:1,
                 name:'a',
-                short_name:'a'}
+                short_name:'a'
+            },
+            {
+                id:2,
+                faculty_id:1,
+                name:'b',
+                short_name:'b'
+            },
         ]
     }),
     getters: {
-      getDepartmentByID(state, id) {
-          return state.departments.find(department => department.id===id)
-      }
+        getDepartmentByID: state=> id=>{
+            return state.departments.find(department => department.id===id)
+
+        }
+
     },
     mutations: {
         addDepartment(state, department) {
@@ -31,8 +40,11 @@ export const departmentsModule = {
                 .filter(department => !checkedIDs.includes(department.id));
         },
 
-        editDepartmentByID(state, id) {
-
+        editDepartmentByID(state, departmentForEdit) {
+            let department = state.departments.find(department => department.id===departmentForEdit.id)
+            department.name=departmentForEdit.name
+            department.faculty_id=departmentForEdit.faculty_id
+            department.short_name=departmentForEdit.short_name
         }
     },
     actions: {
@@ -42,6 +54,9 @@ export const departmentsModule = {
 
         deleteCheckedDepartments({ commit }, checkedIDs) {
             commit('deleteCheckedDepartments', checkedIDs)
+        },
+        editDepartmentByID({commit}, departmentForEdit){
+          commit('editDepartmentByID', departmentForEdit)
         }
     },
     namespaced: true

@@ -5,11 +5,16 @@ export const facultiesModule = {
                 id:1,
                 name:'a',
                 short_name:'a'
+            },
+            {
+                id:2,
+                name:'b',
+                short_name:'b'
             }
         ]
     }),
     getters: {
-        getFacultyByID(state, id) {
+        getFacultyByID: state=> id=> {
             return state.faculties.find(faculty => faculty.id===id)
         }
     },
@@ -32,8 +37,10 @@ export const facultiesModule = {
                 .filter(faculty => !checkedIDs.includes(faculty.id));
         },
 
-        editFacultyByID(state, id) {
-
+        editFacultyByID(state, facultyForEdit) {
+            let faculty = state.faculties.find( faculty => faculty.id===facultyForEdit.id)
+            faculty.name=facultyForEdit.name
+            faculty.short_name=facultyForEdit.short_name
         }
     },
 
@@ -44,6 +51,9 @@ export const facultiesModule = {
 
         deleteCheckedFaculties({ commit }, checkedIDs) {
             commit('deleteCheckedFaculties', checkedIDs);
+        },
+        editFacultyByID({commit}, facultyForEdit) {
+            commit('editFacultyByID', facultyForEdit )
         }
     },
     namespaced: true

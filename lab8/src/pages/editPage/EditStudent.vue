@@ -1,6 +1,7 @@
 <template>
   <form action="" method="post" @submit.prevent>
-    <h2>Add student</h2>
+    <h2>Edit student: {{getStudent.name}}, Group: {{groups.find(group => group.id===getStudent.group_id).name}}</h2>
+
     <input
         v-model="getStudent.name"
         type="text"
@@ -27,7 +28,7 @@
       </option>
     </select>
 
-    <custom-submit @click="process" value="Add"/>
+    <custom-submit @click="process" value="Edit"/>
   </form>
 
 </template>
@@ -37,19 +38,13 @@ import {mapActions, mapGetters, mapState} from 'vuex'
 export default {
   name: "EditStudent",
 
-  data() {
-    return {
-
-    }
-  },
-
   computed: {
     ...mapState({
       groups: state => state.groups.groups
     }),
 
     getStudent() {
-      return this.getStudentByID(parseInt(this.$route.params.id))
+      return  Object.assign({}, this.getStudentByID(parseInt(this.$route.params.id)))
     },
 
     ...mapGetters({
@@ -64,7 +59,7 @@ export default {
       }),
 
       process() {
-
+        this.editStudentByID({...this.getStudent})
       }
     }
 }

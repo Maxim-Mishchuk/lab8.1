@@ -1,7 +1,8 @@
 <template>
 
   <form action="" method="post" @submit.prevent>
-    <h2>Add teacher</h2>
+    <h2>Edit teacher: {{getTeacher.name}} {{getTeacher.surname}}</h2>
+
     <input
         v-model="getTeacher.name"
         type="text"
@@ -27,16 +28,18 @@
         name=""
         placeholder="Phone"
     >
-    <custom-submit @click="process" value="Add"/>
+    <custom-submit @click="process" value="Edit"/>
   </form>
 </template>
 
 <script>
 import { mapGetters,mapActions} from 'vuex';
+
 export default {
   name: "EditTeacher",
   data() {
     return {
+
     }
   },
   computed:{
@@ -44,7 +47,7 @@ export default {
       getTeacherByID: 'teachers/getTeacherByID'
     }),
     getTeacher(){
-      return this.getTeacherByID(parseInt(this.$route.params.id))
+      return  Object.assign({}, this.getTeacherByID(parseInt(this.$route.params.id)))
     }
 
 

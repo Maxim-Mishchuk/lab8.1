@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Faculty_ID</th>
+        <th>Faculty</th>
         <th>Name</th>
         <th>Short_Name</th>
         <th>Edit</th>
@@ -13,7 +13,7 @@
     <tbody>
       <tr v-for="department in departments">
         <td>{{ department.id }}</td>
-        <td>{{ department.faculty_id }}</td>
+        <td>{{ faculties.find( faculty => faculty.id===department.faculty_id).name }}</td>
         <td>{{ department.name }}</td>
         <td>{{ department.short_name }}</td>
         <td><router-link :to="{ name:'editDepartment', params: {
@@ -50,7 +50,8 @@ export default {
 
   computed: {
     ...mapState({
-      departments: state => state.departments.departments
+      departments: state => state.departments.departments,
+      faculties: state => state.faculties.faculties
     })
   },
   methods: {

@@ -1,28 +1,24 @@
 <template>
   <form action="" method="post" @submit.prevent>
     <h2>Add discipline</h2>
-    <input
-        type="text"
-        v-model="discipline.name"
-        @input="validateName"
+    <custom-input
+        type-validation="name"
         placeholder="Name"
-    >
-
-    <message-form
-        :message="message.text"
-        :type="message.type"
+        v-model="discipline.name"
+        v-model:validation-value="validations.name"
     />
+
     <custom-submit @click="process" value="Add"/>
   </form>
 </template>
 
 <script>
-import MessageForm from "@/components/MessageForm.vue";
+import CustomInput from "@/components/CustomInput.vue";
 import {mapActions} from 'vuex'
 export default {
   name: "DisciplineForm",
   components: {
-    MessageForm
+    CustomInput
   },
 
 
@@ -32,9 +28,8 @@ export default {
         name: '',
       },
 
-      message: {
-        text: '',
-        type: null
+      validations: {
+        name: false
       }
     }
   },
@@ -53,23 +48,12 @@ export default {
 
     validateDiscipline() {
       let validations = [
-          this.validateName(),
+        this.validations.name
       ]
 
       return validations.filter(status => status === false).length === 0
     },
 
-    validateName() {
-      const regExName = /^$|[^a-zA-Z\u0400-\u04FF]+/;
-      if (regExName.test(this.discipline.name) || this.discipline.name.length <= 2) {
-        this.message.text = 'Invalid name, please write other';
-        this.message.type = 0;
-        return false;
-      }
-      this.message.text = 'Correct name!';
-      this.message.type = 1;
-      return true;
-    },
 
     clearAllFields() {
       this.discipline.name = '';

@@ -1,30 +1,33 @@
 <template>
   <form action="" method="post" @submit.prevent>
     <h2>Add teacher</h2>
-    <input
-        v-model="teacher.name"
-        type="text"
-        name=""
+    <custom-input
         placeholder="Name"
-    >
-    <input
-        v-model="teacher.surname"
-        type="text"
-        name=""
+        type-validation="name"
+        v-model="teacher.name"
+        v-model:validation-value="validations.name"
+    />
+
+    <custom-input
         placeholder="Surname"
-    >
-    <input
-        v-model="teacher.email"
-        type="email"
-        name=""
+        type-validation="name"
+        v-model="teacher.surname"
+        v-model:validation-value="validations.surname"
+    />
+
+    <custom-input
         placeholder="Email"
-    >
+        type-validation="email"
+        v-model="teacher.email"
+        v-model:validation-value="validations.email"
+    />
 
     <input
-        v-model="teacher.phone"
         type="tel"
-        name=""
         placeholder="Phone"
+        v-model="teacher.phone"
+        v-mask="'+38(###)-###-##-##'"
+        @input="validatePhoneNumber"
     >
 
     <custom-submit @click="process" value="Add"/>
@@ -32,9 +35,14 @@
 </template>
 
 <script>
+import customInput from "@/components/CustomInput.vue";
 import {mapActions} from 'vuex'
 export default {
   name: "TeacherForm",
+  components: {
+    customInput
+  },
+
 
   data() {
     return {
@@ -43,6 +51,13 @@ export default {
         surname: '',
         email: '',
         phone: ''
+      },
+
+      validations: {
+        name: false,
+        surname: false,
+        email: false,
+        phone: false
       }
     }
   },
@@ -52,8 +67,25 @@ export default {
     }),
 
     process() {
-      this.addTeacher({...this.teacher})
-      this.clearAllFields();
+      if(this.validateTeacher()) {
+        this.addTeacher({...this.teacher})
+        this.clearAllFields();
+      }
+    },
+
+    validateTeacher() {
+      let validations = [
+          this.validations.name,
+          this.validations.surname,
+          this.validations.email,
+          this.validations.phone
+      ]
+
+      return validations.filter(status => status === false).length === 0
+    },
+
+    validatePhoneNumber() {
+      this.validations.phone = this.teacher.phone.length === 18;
     },
 
     clearAllFields() {

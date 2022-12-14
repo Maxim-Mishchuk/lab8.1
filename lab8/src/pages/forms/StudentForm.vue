@@ -15,6 +15,7 @@
     <input
         v-model="student.phone"
         type="tel"
+        v-mask="'+38(###)-###-##-##'"
         name=""
         placeholder="Phone"
     >

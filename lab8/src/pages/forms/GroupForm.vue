@@ -39,9 +39,9 @@ export default {
   data(){
     return{
         group:{
-          department_id:'',
-          name:'',
-          course:''
+          department_id: '',
+          name: '',
+          course: ''
         }
     }
   },
@@ -59,6 +59,13 @@ export default {
 
     process() {
       this.addGroup({...this.group});
+      this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.group.department_id = '';
+      this.group.name = '';
+      this.group.course = ''
     }
   }
 }

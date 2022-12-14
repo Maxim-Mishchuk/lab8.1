@@ -31,6 +31,11 @@ export default {
 
     process() {
      this.addDiscipline({...this.discipline});
+     this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.discipline.name = '';
     }
   }
 }

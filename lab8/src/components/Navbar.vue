@@ -120,12 +120,17 @@ export default {
 }
 
 .select-content{
-  display: none;
   position: absolute;
   right: 0;
   top: calc(50px + 1em);
   border-top: white solid 5px;
   background: black;
+
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition: 0.25s;
 }
 
 .select-content-btn {
@@ -156,6 +161,8 @@ export default {
 }
 
 .active {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>

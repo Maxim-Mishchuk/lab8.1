@@ -35,9 +35,9 @@ export default {
   data(){
     return{
       department: {
-        faculty_id:'',
-        name:'',
-        short_name:''
+        faculty_id: '',
+        name: '',
+        short_name: ''
       }
     }
   },
@@ -55,6 +55,13 @@ export default {
 
     process() {
       this.addDepartment({...this.department});
+      this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.department.faculty_id = '';
+      this.department.name = '';
+      this.department.short_name = '';
     }
   }
 }

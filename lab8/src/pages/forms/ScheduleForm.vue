@@ -86,6 +86,16 @@ export default {
 
     process() {
       this.addSchedule({...this.schedule});
+      this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.schedule.name = '';
+      this.schedule.teacher_id = '';
+      this.schedule.discipline_id = '';
+      this.schedule.group_id = '';
+      this.schedule.time = '';
+      this.schedule.classroom = '';
     }
   }
 }

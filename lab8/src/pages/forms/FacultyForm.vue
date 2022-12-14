@@ -27,8 +27,8 @@ export default {
   data(){
     return{
       faculty:{
-        name:'',
-        short_name:''
+        name: '',
+        short_name: ''
       }
     }
   },
@@ -39,6 +39,12 @@ export default {
 
     process() {
       this.addFaculty({...this.faculty});
+      this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.faculty.name = '';
+      this.faculty.short_name = '';
     }
   }
 }

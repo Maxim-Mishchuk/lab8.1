@@ -53,6 +53,14 @@ export default {
 
     process() {
       this.addTeacher({...this.teacher})
+      this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.teacher.name = '';
+      this.teacher.surname = '';
+      this.teacher.email = '';
+      this.teacher.phone = '';
     }
   }
 }

@@ -61,6 +61,14 @@ export default {
 
     process() {
       this.addStudent({...this.student});
+      this.clearAllFields();
+    },
+
+    clearAllFields() {
+      this.student.group_id = '';
+      this.student.name = '';
+      this.student.email = '';
+      this.student.phone = '';
     }
   }
 }

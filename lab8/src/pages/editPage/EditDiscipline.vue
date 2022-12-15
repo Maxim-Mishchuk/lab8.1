@@ -7,7 +7,9 @@
         placeholder="Name"
     >
 
-    <custom-submit @click="process" value="Edit"/>
+    <router-link to="/disciplineTable">
+      <custom-submit @click="process" value="Edit"/>
+    </router-link>
   </form>
 </template>
 
@@ -33,7 +35,7 @@ export default {
     }),
 
     process() {
-      this.editDisciplineByID({...this.getDiscipline})
+      this.editDisciplineByID(this.getDiscipline)
 
     }
   }

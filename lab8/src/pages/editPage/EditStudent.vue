@@ -28,7 +28,9 @@
       </option>
     </select>
 
+    <router-link to="/studentTable">
     <custom-submit @click="process" value="Edit"/>
+    </router-link>
   </form>
 
 </template>
@@ -59,7 +61,7 @@ export default {
       }),
 
       process() {
-        this.editStudentByID({...this.getStudent})
+        this.editStudentByID(this.getStudent)
       }
     }
 }

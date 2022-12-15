@@ -1,6 +1,7 @@
 <template>
-  <table>
-    <thead>
+  <div v-if="departments.length > 0">
+    <table>
+      <thead>
       <tr>
         <th>ID</th>
         <th>Faculty</th>
@@ -9,8 +10,8 @@
         <th>Edit</th>
         <th>Select</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr v-for="department in departments">
         <td>{{ department.id }}</td>
         <td>{{ faculties.find( faculty => faculty.id===department.faculty_id).name }}</td>
@@ -23,13 +24,17 @@
         >Edit</router-link></td>
         <td><input @input="checkDepartment" type="checkbox" :value="department.id"></td>
       </tr>
-    </tbody>
-  </table>
-  <form action="" method="post" @submit.prevent>
-    <actions-with-tables @getAction="processAction"/>
+      </tbody>
+    </table>
+    <form action="" method="post" @submit.prevent>
+      <actions-with-tables @getAction="processAction"/>
 
-    <custom-submit @click="process" value="Do"/>
-  </form>
+      <custom-submit @click="process" value="Do"/>
+    </form>
+  </div>
+  <div v-else>
+    DepartmentTable is empty! Please, add some departments to render the table
+  </div>
 </template>
 
 <script>

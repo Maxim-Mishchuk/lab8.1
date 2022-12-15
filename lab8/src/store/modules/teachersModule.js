@@ -1,14 +1,6 @@
 export const teachersModule = {
     state: () => ({
-        teachers: [
-            {
-                id:124,
-                name: 'a',
-                surname: 'a',
-                email: 'a@a',
-                phone: 'a'
-            }
-        ]
+        teachers: []
     }),
 
     getters: {

@@ -1,11 +1,6 @@
 export const disciplinesModule = {
     state: () => ({
-        disciplines: [
-            {
-                id:1,
-                name: 'a',
-            }
-        ]
+        disciplines: []
     }),
     getters: {
         getDisciplineByID: state=> id=> {

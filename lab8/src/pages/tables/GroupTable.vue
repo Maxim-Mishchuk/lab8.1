@@ -1,6 +1,7 @@
 <template>
-  <table>
-    <thead>
+  <div v-if="groups.length > 0">
+    <table>
+      <thead>
       <tr>
         <th>ID</th>
         <th>Department</th>
@@ -9,8 +10,8 @@
         <th>Edit</th>
         <th>Select</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr v-for="group in groups">
         <td>{{ group.id }}</td>
         <td>{{ departments.find(department => department.id===group.department_id).name }}</td>
@@ -23,12 +24,16 @@
         >Edit</router-link></td>
         <td><input @input="checkGroup" type="checkbox" :value="group.id"></td>
       </tr>
-    </tbody>
-  </table>
-  <form action="" method="post" @submit.prevent>
-    <actions-with-tables @getAction="processAction"/>
-    <custom-submit @click="process" value="Do"/>
-  </form>
+      </tbody>
+    </table>
+    <form action="" method="post" @submit.prevent>
+      <actions-with-tables @getAction="processAction"/>
+      <custom-submit @click="process" value="Do"/>
+    </form>
+  </div>
+  <div v-else>
+    GroupTable is empty! Please, add some groups to render the table
+  </div>
 </template>
 
 <script>

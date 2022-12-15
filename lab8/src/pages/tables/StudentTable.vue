@@ -1,6 +1,7 @@
 <template>
-  <table>
-    <thead>
+  <div v-if="students.length > 0">
+    <table>
+      <thead>
       <tr>
         <th>ID</th>
         <th>group</th>
@@ -10,8 +11,8 @@
         <th>Edit</th>
         <th>Select</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr v-for="student in students">
         <td>{{ student.id }}</td>
         <td>{{ groups.find(group => group.id===student.group_id).name }}</td>
@@ -25,12 +26,16 @@
         >Edit</router-link></td>
         <td><input @input="checkStudent" type="checkbox" :value="student.id"></td>
       </tr>
-    </tbody>
-  </table>
-  <form action="" method="post" @submit.prevent>
-    <actions-with-tables @getAction="processAction"/>
-    <custom-submit @click="process" value="Do"/>
-  </form>
+      </tbody>
+    </table>
+    <form action="" method="post" @submit.prevent>
+      <actions-with-tables @getAction="processAction"/>
+      <custom-submit @click="process" value="Do"/>
+    </form>
+  </div>
+  <div v-else>
+    StudentTable is empty! Please, add some students to render the table
+  </div>
 </template>
 
 <script>

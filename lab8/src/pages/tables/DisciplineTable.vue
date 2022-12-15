@@ -1,31 +1,36 @@
 <template>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Edit</th>
-        <th>Select</th>
+  <div v-if="disciplines.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Edit</th>
+          <th>Select</th>
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="discipline in disciplines">
-        <td>{{ discipline.id }}</td>
-        <td>{{ discipline.name }}</td>
-        <td><router-link :to="{ name:'editDiscipline', params: {
-              id: discipline.id,
-          }}"
-                         id="button"
-        >Edit</router-link></td>
-        <td><input @input="checkDiscipline" type="checkbox" :value="discipline.id"></td>
-      </tr>
-    </tbody>
-  </table>
-  <form action="" method="post" @submit.prevent>
-    <actions-with-tables @getAction="processAction"/>
-    <custom-submit @click="process" value="Do"/>
-  </form>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="discipline in disciplines">
+          <td>{{ discipline.id }}</td>
+          <td>{{ discipline.name }}</td>
+          <td><router-link :to="{ name:'editDiscipline', params: {
+                id: discipline.id,
+            }}"
+                           id="button"
+          >Edit</router-link></td>
+          <td><input @input="checkDiscipline" type="checkbox" :value="discipline.id"></td>
+        </tr>
+      </tbody>
+    </table>
+    <form action="" method="post" @submit.prevent>
+      <actions-with-tables @getAction="processAction"/>
+      <custom-submit @click="process" value="Do"/>
+    </form>
+  </div>
+  <div v-else>
+    DisciplineTable is empty! Please, add some disciplines to render the table
+  </div>
 </template>
 
 <script>

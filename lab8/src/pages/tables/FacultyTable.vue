@@ -1,6 +1,7 @@
 <template>
-  <table>
-    <thead>
+  <div v-if="faculties.length > 0">
+    <table>
+      <thead>
       <tr>
         <th>ID</th>
         <th>Name</th>
@@ -8,8 +9,8 @@
         <th>Edit</th>
         <th>Select</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr v-for="faculty in faculties">
         <td>{{ faculty.id }}</td>
         <td>{{ faculty.name }}</td>
@@ -21,12 +22,16 @@
         >Edit</router-link></td>
         <td><input @input="checkFaculty" type="checkbox" :value="faculty.id"></td>
       </tr>
-    </tbody>
-  </table>
-  <form action="" method="post" @submit.prevent>
-    <actions-with-tables @getAction="processAction"/>
-    <custom-submit @click="process" value="Do"/>
-  </form>
+      </tbody>
+    </table>
+    <form action="" method="post" @submit.prevent>
+      <actions-with-tables @getAction="processAction"/>
+      <custom-submit @click="process" value="Do"/>
+    </form>
+  </div>
+  <div v-else>
+    FacultyTable is empty! Please, add some faculties to render the table
+  </div>
 </template>
 
 <script>

@@ -1,8 +1,6 @@
 export const schedulesModule = {
     state: () => ({
-        schedules: [
-
-        ]
+        schedules: []
     }),
 
     getters: {

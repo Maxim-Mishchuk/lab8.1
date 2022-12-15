@@ -1,6 +1,7 @@
 <template>
-  <table>
-    <thead>
+  <div v-if="schedules.length > 0">
+    <table>
+      <thead>
       <tr>
         <th>ID</th>
         <th>Name</th>
@@ -12,8 +13,8 @@
         <th>Edit</th>
         <th>Select</th>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr v-for="schedule in schedules">
         <td>{{ schedule.id }}</td>
         <td>{{ schedule.name }}</td>
@@ -25,12 +26,16 @@
         <td>Edit</td>
         <td><input @input="checkSchedule" type="checkbox" :value="schedule.id"></td>
       </tr>
-    </tbody>
-  </table>
-  <form action="" method="post" @submit.prevent>
-    <actions-with-tables @getAction="processAction"/>
-    <custom-submit @click="process" value="Do"/>
-  </form>
+      </tbody>
+    </table>
+    <form action="" method="post" @submit.prevent>
+      <actions-with-tables @getAction="processAction"/>
+      <custom-submit @click="process" value="Do"/>
+    </form>
+  </div>
+  <div v-else>
+    ScheduleTable is empty! Please, add some schedules to render the table
+  </div>
 </template>
 
 <script>

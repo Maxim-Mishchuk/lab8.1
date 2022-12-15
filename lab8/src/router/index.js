@@ -25,6 +25,8 @@ import EditSchedule from "@/pages/editPage/EditSchedule.vue";
 import EditStudent from "@/pages/editPage/EditStudent.vue";
 import EditTeacher from "@/pages/editPage/EditTeacher.vue";
 
+import FAQ from "@/pages/FAQ.vue";
+
 
 
 
@@ -146,6 +148,10 @@ const router = createRouter({
       component: EditDepartment ,
       name: 'editDepartment'
     },
+    {
+      path: '/faq',
+      component: FAQ
+    }
   ]
 })
 

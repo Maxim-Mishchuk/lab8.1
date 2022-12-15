@@ -34,6 +34,8 @@
       </div>
     </div>
 
+    <router-link to="/faq" class="navbar-btn">FAQ</router-link>
+
   </nav>
 </template>
 
@@ -85,6 +87,28 @@ export default {
   padding: 19px;
   font-size: 1.5em;
   margin-right: auto;
+
+  position: relative;
+}
+
+.navbar-logo::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  bottom: 15px;
+  width: 100%;
+  height: 2px;
+
+  background: white;
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: 0.25s transform ease-out;
+}
+
+.navbar-logo:hover::after {
+  transform: scaleX(1);
 }
 
 .navbar-btn {

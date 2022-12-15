@@ -28,7 +28,9 @@
         name=""
         placeholder="Phone"
     >
-    <custom-submit @click="process" value="Edit"/>
+    <router-link to="/teacherTable">
+      <custom-submit @click="process" value="Edit"/>
+    </router-link>
   </form>
 </template>
 
@@ -59,7 +61,7 @@ export default {
     }),
 
     process() {
-      this.editTeacherByID({...this.getTeacher})
+      this.editTeacherByID(this.getTeacher)
 
     }
   }

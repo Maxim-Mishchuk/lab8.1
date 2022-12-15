@@ -93,7 +93,7 @@ const router = createRouter({
       component: TeacherTable
     },
     {
-      path: '/editDepartment/',
+      path: '/editDepartment',
       component: EditDepartment
     },
     {

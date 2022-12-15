@@ -22,7 +22,9 @@
       </option>
     </select>
 
-    <custom-submit @click="process" value="Edit"/>
+    <router-link to="/departmentTable">
+      <custom-submit @click="process" value="Edit"/>
+    </router-link>
   </form>
 </template>
 
@@ -52,7 +54,7 @@ export default {
     }),
 
     process() {
-      this.editDepartmentByID({...this.getDepartment})
+      this.editDepartmentByID(this.getDepartment)
     }
   }
 }

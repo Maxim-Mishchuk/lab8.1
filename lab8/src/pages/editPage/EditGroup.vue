@@ -25,7 +25,9 @@
       </option>
     </select>
 
-    <custom-submit @click="process" value="Edit"/>
+    <router-link to="/groupTable">
+      <custom-submit @click="process" value="Edit"/>
+    </router-link>
   </form>
 
 </template>
@@ -60,7 +62,7 @@ export default {
     }),
 
     process() {
-      this.editGroupByID({...this.getGroup})
+      this.editGroupByID(this.getGroup)
 
     }
   }

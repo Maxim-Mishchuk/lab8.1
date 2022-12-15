@@ -14,7 +14,9 @@
         placeholder="shortName"
     >
 
-    <custom-submit @click="process" value="Edit"/>
+    <router-link to="/facultyTable">
+      <custom-submit @click="process" value="Edit"/>
+    </router-link>
   </form>
 
 
@@ -41,7 +43,7 @@ export default {
     }),
 
     process() {
-        this.editFacultyByID({...this.getFaculty})
+        this.editFacultyByID(this.getFaculty)
     }
   }
 }

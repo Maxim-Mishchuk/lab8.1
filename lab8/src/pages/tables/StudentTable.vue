@@ -15,7 +15,7 @@
       <tbody>
       <tr v-for="student in students">
         <td>{{ student.id }}</td>
-        <td>{{ groups.find(group => group.id===student.group_id).name }}</td>
+        <td>{{ groups.find(group => group.id===parseInt(student.group_id)).name }}</td>
         <td>{{ student.name }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.phone }}</td>

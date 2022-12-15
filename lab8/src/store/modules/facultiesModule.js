@@ -1,6 +1,17 @@
 export const facultiesModule = {
     state: () => ({
-        faculties: []
+        faculties: [
+            {
+                id:1,
+                name:'a',
+                short_name:'a'
+            },
+            {
+                id:2,
+                name:'b',
+                short_name:'b'
+            }
+        ]
     }),
     getters: {
         getFacultyByID: state=> id=> {

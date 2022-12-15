@@ -14,7 +14,7 @@
       <tbody>
       <tr v-for="department in departments">
         <td>{{ department.id }}</td>
-        <td>{{ faculties.find( faculty => faculty.id===department.faculty_id).name }}</td>
+        <td>{{ faculties.find( faculty => faculty.id===parseInt(department.faculty_id)).name }}</td>
         <td>{{ department.name }}</td>
         <td>{{ department.short_name }}</td>
         <td><router-link :to="{ name:'editDepartment', params: {

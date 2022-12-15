@@ -14,7 +14,7 @@
       <tbody>
       <tr v-for="group in groups">
         <td>{{ group.id }}</td>
-        <td>{{ departments.find(department => department.id===group.department_id).name }}</td>
+        <td>{{ departments.find(department => department.id===parseInt(group.department_id)).name }}</td>
         <td>{{ group.name }}</td>
         <td>{{ group.course }}</td>
         <td><router-link :to="{ name:'editGroup', params: {

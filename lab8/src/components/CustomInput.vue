@@ -83,7 +83,8 @@ export default {
           return this.validateName();
         case 'email':
           return this.validateEmail();
-
+        case 'time':
+          return this.validateTime()
       }
     },
 
@@ -110,6 +111,17 @@ export default {
       this.message.type = 1;
       return true;
     },
+
+    validateTime() {
+      if (this.modelValue) {
+        this.message.text = 'Correct time!';
+        this.message.type = 1;
+        return true;
+      }
+      this.message.text = 'Please, write the correct time';
+      this.message.type = 0;
+      return false;
+    }
 
   }
 }

@@ -65,6 +65,9 @@ export default {
     clearAllFields() {
       this.faculty.name = '';
       this.faculty.short_name = '';
+
+      this.validations.name = false;
+      this.validations.short_name = false;
     }
   }
 }

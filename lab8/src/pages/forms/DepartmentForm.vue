@@ -1,19 +1,21 @@
 <template>
   <form @submit.prevent>
     <h2>Add department</h2>
-    <input
-        autocomplete="off"
+    <custom-input
+        placeholder="Name"
+        type-validation="name"
         v-model="department.name"
-        type="text"
-        placeholder="name"
-    >
-    <input
-        autocomplete="off"
-        v-model="department.short_name"
-        type="text"
+        v-model:validation-value="validations.name"
+    />
+
+    <custom-input
         placeholder="shortName"
-    >
-    <select v-model="department.faculty_id">
+        type-validation="name"
+        v-model="department.short_name"
+        v-model:validation-value="validations.short_name"
+    />
+
+    <select @click="validateFacultyID" v-model="department.faculty_id">
       <option value="">Faculty</option>
       <option
           v-for="faculty in faculties"
@@ -23,14 +25,25 @@
       </option>
     </select>
 
+    <message-form
+        :type="messages.messageFacultyID.type"
+        :message="messages.messageFacultyID.text"
+    />
+
     <custom-submit @click="process" value="Add"/>
   </form>
 </template>
 
 <script>
+import CustomInput from "@/components/CustomInput.vue";
+import MessageForm from "@/components/MessageForm.vue";
 import {mapActions, mapState} from 'vuex'
 export default {
   name: "DepartmentForm",
+  components: {
+    CustomInput,
+    MessageForm
+  },
 
   data(){
     return{
@@ -38,6 +51,19 @@ export default {
         faculty_id: '',
         name: '',
         short_name: ''
+      },
+
+      validations: {
+        faculty_id: false,
+        name: false,
+        short_name: false
+      },
+
+      messages: {
+        messageFacultyID: {
+          type: null,
+          text: ''
+        }
       }
     }
   },
@@ -54,14 +80,42 @@ export default {
     }),
 
     process() {
-      this.addDepartment({...this.department});
-      this.clearAllFields();
+      if(this.validateDepartment()) {
+        this.addDepartment({...this.department});
+        this.clearAllFields();
+      }
+    },
+
+    validateDepartment() {
+      let validations = [
+        this.validations.faculty_id,
+        this.validations.name,
+        this.validations.short_name
+      ];
+
+      return validations.filter(status => status === false).length === 0
+    },
+
+    validateFacultyID() {
+      if (!this.department.faculty_id) {
+        this.validations.faculty_id = false;
+        this.messages.messageFacultyID.type = 0;
+        this.messages.messageFacultyID.text = 'Please, choose the facultyID'
+      } else {
+        this.validations.faculty_id = true
+        this.messages.messageFacultyID.type = 1;
+        this.messages.messageFacultyID.text = 'facultyID`ve been chosen'
+      }
     },
 
     clearAllFields() {
       this.department.faculty_id = '';
       this.department.name = '';
       this.department.short_name = '';
+
+      this.validations.name = false;
+      this.validations.short_name = false;
+      this.validations.faculty_id = false;
     }
   }
 }

@@ -29,6 +29,10 @@
         v-mask="'+38(###)-###-##-##'"
         @input="validatePhoneNumber"
     >
+    <message-form
+        :type="messages.messagePhone.type"
+        :message="messages.messagePhone.text"
+    />
 
     <custom-submit @click="process" value="Add"/>
   </form>
@@ -36,11 +40,13 @@
 
 <script>
 import customInput from "@/components/CustomInput.vue";
+import MessageForm from "@/components/MessageForm.vue";
 import {mapActions} from 'vuex'
 export default {
   name: "TeacherForm",
   components: {
-    customInput
+    customInput,
+    MessageForm
   },
 
 
@@ -58,6 +64,13 @@ export default {
         surname: false,
         email: false,
         phone: false
+      },
+
+      messages: {
+        messagePhone: {
+          type: null,
+          text: ''
+        }
       }
     }
   },
@@ -86,6 +99,13 @@ export default {
 
     validatePhoneNumber() {
       this.validations.phone = this.teacher.phone.length === 18;
+      if (this.validations.phone) {
+        this.messages.messagePhone.type = 1;
+        this.messages.messagePhone.text = 'Correct phoneNumber!';
+      } else {
+        this.messages.messagePhone.type = 0;
+        this.messages.messagePhone.text = 'Invalid phoneNumber, please write other';
+      }
     },
 
     clearAllFields() {
@@ -93,6 +113,11 @@ export default {
       this.teacher.surname = '';
       this.teacher.email = '';
       this.teacher.phone = '';
+
+      this.validations.name = false;
+      this.validations.surname = false;
+      this.validations.email = false;
+      this.validations.phone = false;
     }
   }
 }

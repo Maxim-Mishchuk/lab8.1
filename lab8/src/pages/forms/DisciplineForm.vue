@@ -57,6 +57,8 @@ export default {
 
     clearAllFields() {
       this.discipline.name = '';
+
+      this.validations.name = false;
     }
   }
 }

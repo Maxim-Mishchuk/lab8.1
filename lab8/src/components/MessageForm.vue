@@ -33,6 +33,10 @@ export default {
 </script>
 
 <style scoped>
+  p {
+    margin-bottom: 10px;
+  }
+
   .green-msg {
     color: darkolivegreen;
   }

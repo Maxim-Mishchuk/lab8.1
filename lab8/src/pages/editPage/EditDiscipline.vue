@@ -1,23 +1,37 @@
 <template>
   <form action="" method="post" @submit.prevent>
     <h2>Edit discipline: {{getDiscipline.name}}</h2>
-    <input
-        type="text"
-        v-model="getDiscipline.name"
+    <custom-input
+        type-validation="name"
         placeholder="Name"
-    >
+        v-model="getDiscipline.name"
+        v-model:validation-value="validations.name"
+    />
 
-    <router-link to="/disciplineTable">
+
       <custom-submit @click="process" value="Edit"/>
-    </router-link>
+
   </form>
 </template>
 
 <script>
 import {mapActions, mapGetters} from "vuex";
-
+import CustomInput from "@/components/CustomInput.vue";
+import CustomSubmit from "@/components/CustomSubmit.vue";
 export default {
   name: "editDiscipline",
+  components: {
+    CustomInput,
+    CustomSubmit,
+
+  },
+  data() {
+    return {
+      validations: {
+        name: true
+      }
+    }
+  },
 
   computed: {
     ...mapGetters({
@@ -35,9 +49,18 @@ export default {
     }),
 
     process() {
-      this.editDisciplineByID(this.getDiscipline)
+      if(this.validateDiscipline()) {
+        this.editDisciplineByID(this.getDiscipline)
+        this.$router.push('/disciplineTable')
+      }
+    },
+    validateDiscipline() {
+      let validations = [
+        this.validations.name
+      ]
 
-    }
+      return validations.filter(status => status === false).length === 0
+    },
   }
 }
 </script>

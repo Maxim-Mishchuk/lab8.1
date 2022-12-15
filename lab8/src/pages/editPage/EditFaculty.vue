@@ -1,32 +1,46 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit faculty: {{getFaculty.name}}</h2>
-    <input
-        autocomplete="off"
+    <h2>Edit faculty</h2>
+    <custom-input
+        type-validation="name"
+        placeholder="Name"
         v-model="getFaculty.name"
-        type="text"
-        placeholder="name"
-    >
-    <input
-        autocomplete="off"
-        v-model="getFaculty.short_name"
-        type="text"
+        v-model:validation-value="validations.name"
+    />
+    <custom-input
+        type-validation="name"
         placeholder="shortName"
-    >
+        v-model="getFaculty.short_name"
+        v-model:validation-value="validations.short_name"
+    />
 
-    <router-link to="/facultyTable">
+
       <custom-submit @click="process" value="Edit"/>
-    </router-link>
+
   </form>
 
 
 </template>
 
 <script>
-import {mapActions, mapGetters} from 'vuex'
-
+import {mapActions, mapGetters} from 'vuex';
+import customInput from "@/components/CustomInput.vue";
+import CustomSubmit from "@/components/CustomSubmit.vue";
 export default {
   name: "EditFaculty",
+  components: {
+    customInput,
+    CustomSubmit
+  },
+  data(){
+    return{
+      validations: {
+        name: true,
+        short_name: true
+      }
+    }
+  },
+
 
   computed:{
     ...mapGetters({
@@ -43,8 +57,19 @@ export default {
     }),
 
     process() {
+      if(this.validateFaculty()) {
         this.editFacultyByID(this.getFaculty)
-    }
+        this.$router.push('/facultyTable')
+      }
+    },
+    validateFaculty() {
+      let validations = [
+        this.validations.name,
+        this.validations.short_name
+      ]
+
+      return validations.filter(status => status === false).length === 0
+    },
   }
 }
 </script>

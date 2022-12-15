@@ -1,19 +1,20 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit department: {{getDepartment.name}}</h2>
-    <input
-        autocomplete="off"
+    <h2>Edit department</h2>
+    <custom-input
+        placeholder="Name"
+        type-validation="name"
         v-model="getDepartment.name"
-        type="text"
-        placeholder="name"
-    >
-    <input
-        autocomplete="off"
-        v-model="getDepartment.short_name"
-        type="text"
+        v-model:validation-value="validations.name"
+    />
+
+    <custom-input
         placeholder="shortName"
-    >
-    <select v-model="getDepartment.faculty_id">
+        type-validation="name"
+        v-model="getDepartment.short_name"
+        v-model:validation-value="validations.short_name"
+    />
+    <select @click="validateFacultyID" v-model="getDepartment.faculty_id">
       <option
           v-for="faculty in faculties"
           :value="faculty.id"
@@ -22,17 +23,44 @@
       </option>
     </select>
 
-    <router-link to="/departmentTable">
+    <message-form
+        :type="messages.messageFacultyID.type"
+        :message="messages.messageFacultyID.text"
+    />
+
       <custom-submit @click="process" value="Edit"/>
-    </router-link>
   </form>
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex';
+import CustomInput from "@/components/CustomInput.vue";
+import MessageForm from "@/components/MessageForm.vue";
+import CustomSubmit from "@/components/CustomSubmit.vue";
 
 export default {
   name: "editDepartment",
+  components: {
+    CustomInput,
+    MessageForm,
+    CustomSubmit
+  },
+  data(){
+    return{
+
+      validations: {
+        faculty_id: true,
+        name: true,
+        short_name: true
+      },
+      messages: {
+        messageFacultyID: {
+          type: null,
+          text: ''
+        }
+      }
+    }
+  },
 
   computed: {
     ...mapState({
@@ -54,8 +82,33 @@ export default {
     }),
 
     process() {
-      this.editDepartmentByID(this.getDepartment)
-    }
+      if(this.validateDepartment()){
+        this.editDepartmentByID(this.getDepartment)
+        this.$router.push('/departmentTable')
+      }
+    },
+
+    validateDepartment() {
+      let validations = [
+        this.validations.faculty_id,
+        this.validations.name,
+        this.validations.short_name
+      ];
+
+      return validations.filter(status => status === false).length === 0
+    },
+
+    validateFacultyID() {
+      if (!this.getDepartment.faculty_id) {
+        this.validations.faculty_id = false;
+        this.messages.messageFacultyID.type = 0;
+        this.messages.messageFacultyID.text = 'Please, choose the facultyID'
+      } else {
+        this.validations.faculty_id = true
+        this.messages.messageFacultyID.type = 1;
+        this.messages.messageFacultyID.text = 'facultyID`ve been chosen'
+      }
+    },
   }
 }
 </script>

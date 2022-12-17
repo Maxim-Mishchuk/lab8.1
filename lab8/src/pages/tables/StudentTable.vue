@@ -19,11 +19,17 @@
         <td>{{ student.name }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.phone }}</td>
-        <td><router-link :to="{ name:'editStudent', params: {
+        <td>
+          <router-link :to="
+          {
+            name:'editStudent',
+            params: {
               id: student.id,
-          }}"
-                         id="button"
-        >Edit</router-link></td>
+            }
+          }">
+            Edit
+          </router-link>
+        </td>
         <td><input @input="checkStudent" type="checkbox" :value="student.id"></td>
       </tr>
       </tbody>
@@ -49,7 +55,7 @@ export default {
 
   data() {
     return {
-      checkedStudents: [],
+      checkedEvents: [],
       actionToDo: ''
     }
   },
@@ -68,11 +74,12 @@ export default {
     }),
 
     checkStudent(event) {
-      let event_id = event.target.value;
       if (event.target.checked === true) {
-        this.checkedStudents.push(event_id);
+        this.checkedEvents.push(event);
       } else {
-        this.checkedStudents = this.checkedStudents.filter(current_id => current_id !== event_id);
+        this.checkedEvents = this.checkedEvents.filter(
+            current_event => current_event.target.value !== event.target.value
+        );
       }
     },
 
@@ -82,8 +89,14 @@ export default {
 
     process() {
       if (this.actionToDo === 'delete') {
-        this.deleteCheckedStudents(this.checkedStudents)
+        this.deleteCheckedStudents(this.checkedEvents.map(current_event => current_event.target.value));
+        this.uncheckCheckboxes();
       }
+    },
+
+    uncheckCheckboxes() {
+      this.checkedEvents = this.checkedEvents.map(current_event => current_event.target.checked = false);
+      this.checkedEvents = [];
     }
   }
 }

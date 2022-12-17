@@ -1,6 +1,6 @@
 <template>
   <form action="" method="post" @submit.prevent>
-    <h2>Edit student: {{getStudent.name}}, Group: {{groups.find(group => group.id===getStudent.group_id).name}}</h2>
+    <h2>Edit student: {{ getStudentByID(getStudent.id).name }}, Group: {{ groups[getStudentByID(getStudent.id).group_id].name }}</h2>
 
     <custom-input
         placeholder="Name"

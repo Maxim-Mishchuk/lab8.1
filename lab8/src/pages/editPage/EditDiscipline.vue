@@ -1,6 +1,6 @@
 <template>
   <form action="" method="post" @submit.prevent>
-    <h2>Edit discipline: {{getDiscipline.name}}</h2>
+    <h2>Edit discipline: {{ getDisciplineByID(getDiscipline.id).name }}</h2>
     <custom-input
         type-validation="name"
         placeholder="Name"

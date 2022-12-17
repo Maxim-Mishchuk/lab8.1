@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit group: {{getGroup.name}}</h2>
+    <h2>Edit group: {{ getGroupByID(getGroup.id).name }}</h2>
     <custom-input
         placeholder="Name"
         type-validation="name"

@@ -17,11 +17,16 @@
         <td>{{ faculties.find( faculty => faculty.id===parseInt(department.faculty_id)).name }}</td>
         <td>{{ department.name }}</td>
         <td>{{ department.short_name }}</td>
-        <td><router-link :to="{ name:'editDepartment', params: {
+        <td>
+          <router-link :to="{
+            name:'editDepartment',
+            params: {
               id: department.id,
-          }}"
-                         id="button"
-        >Edit</router-link></td>
+            }
+          }">
+            Edit
+          </router-link>
+        </td>
         <td><input @input="checkDepartment" type="checkbox" :value="department.id"></td>
       </tr>
       </tbody>
@@ -48,7 +53,7 @@ export default {
 
   data() {
     return {
-      checkedDepartments: [],
+      checkedEvents: [],
       actionToDo: ''
     }
   },
@@ -65,12 +70,14 @@ export default {
     }),
 
     checkDepartment(event) {
-      let event_id = event.target.value;
       if (event.target.checked === true) {
-        this.checkedDepartments.push(event_id);
+        this.checkedEvents.push(event);
       } else {
-        this.checkedDepartments = this.checkedDepartments.filter(current_id => current_id !== event_id);
+        this.checkedEvents = this.checkedEvents.filter(
+            current_event => current_event.target.value !== event.target.value
+        );
       }
+      console.log(this.checkedEvents)
     },
 
     processAction(actionToDo) {
@@ -79,8 +86,14 @@ export default {
 
     process() {
       if (this.actionToDo === 'delete') {
-        this.deleteCheckedDepartments(this.checkedDepartments)
+        this.deleteCheckedDepartments(this.checkedEvents.map(current_event => current_event.target.value))
+        this.uncheckCheckboxes();
       }
+    },
+
+    uncheckCheckboxes() {
+      this.checkedEvents = this.checkedEvents.map(current_event => current_event.target.checked = false);
+      this.checkedEvents = [];
     }
   }
 }

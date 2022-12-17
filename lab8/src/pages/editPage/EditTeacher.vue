@@ -1,7 +1,7 @@
 <template>
 
   <form action="" method="post" @submit.prevent>
-    <h2>Edit teacher</h2>
+    <h2>Edit teacher: {{ getTeacherByID(getTeacher.id).name }}</h2>
     <custom-input
         placeholder="Name"
         type-validation="name"

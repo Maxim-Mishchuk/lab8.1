@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit faculty</h2>
+    <h2>Edit faculty: {{ getFacultyByID(getFaculty.id).short_name }}</h2>
     <custom-input
         type-validation="name"
         placeholder="Name"

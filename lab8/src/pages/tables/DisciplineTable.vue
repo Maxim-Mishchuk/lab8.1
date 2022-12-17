@@ -14,11 +14,17 @@
         <tr v-for="discipline in disciplines">
           <td>{{ discipline.id }}</td>
           <td>{{ discipline.name }}</td>
-          <td><router-link :to="{ name:'editDiscipline', params: {
+          <td>
+            <router-link :to="
+            {
+              name:'editDiscipline',
+              params: {
                 id: discipline.id,
-            }}"
-                           id="button"
-          >Edit</router-link></td>
+              }
+            }">
+              Edit
+            </router-link>
+          </td>
           <td><input @input="checkDiscipline" type="checkbox" :value="discipline.id"></td>
         </tr>
       </tbody>
@@ -44,7 +50,7 @@ export default {
 
   data() {
     return {
-      checkedDisciplines: [],
+      checkedEvents: [],
       actionToDo: ''
     }
   },
@@ -61,11 +67,12 @@ export default {
     }),
 
     checkDiscipline(event) {
-      let event_id = event.target.value;
       if (event.target.checked === true) {
-        this.checkedDisciplines.push(event_id);
+        this.checkedEvents.push(event);
       } else {
-        this.checkedDisciplines = this.checkedDisciplines.filter(current_id => current_id !== event_id);
+        this.checkedEvents = this.checkedEvents.filter(
+            current_event => current_event.target.value !== event.target.value
+        );
       }
     },
 
@@ -75,8 +82,14 @@ export default {
 
     process() {
       if (this.actionToDo === 'delete') {
-        this.deleteCheckedDisciplines(this.checkedDisciplines);
+        this.deleteCheckedDisciplines(this.checkedEvents.map(current_event => current_event.target.value));
+        this.uncheckCheckboxes();
       }
+    },
+
+    uncheckCheckboxes() {
+      this.checkedEvents = this.checkedEvents.map(current_event => current_event.target.checked = false);
+      this.checkedEvents = [];
     }
   }
 }

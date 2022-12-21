@@ -25,12 +25,11 @@
 <script>
 import {mapActions, mapGetters} from 'vuex';
 import customInput from "@/components/CustomInput.vue";
-import CustomSubmit from "@/components/CustomSubmit.vue";
+
 export default {
   name: "EditFaculty",
   components: {
     customInput,
-    CustomSubmit
   },
   data(){
     return{

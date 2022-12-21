@@ -7,9 +7,7 @@
         v-model="getDiscipline.name"
         v-model:validation-value="validations.name"
     />
-
-
-      <custom-submit @click="process" value="Edit"/>
+    <custom-submit @click="process" value="Edit"/>
 
   </form>
 </template>
@@ -17,13 +15,11 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import CustomInput from "@/components/CustomInput.vue";
-import CustomSubmit from "@/components/CustomSubmit.vue";
+
 export default {
   name: "editDiscipline",
   components: {
     CustomInput,
-    CustomSubmit,
-
   },
   data() {
     return {

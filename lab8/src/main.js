@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import App from './App.vue'
+import App from '@/App.vue'
 import Navbar from "@/components/Navbar.vue";
 import CustomSubmit from "@/components/CustomSubmit.vue";
-import router from './router'
+import router from '@/router'
 import store from '@/store'
 
 import VueTheMask from 'vue-the-mask'

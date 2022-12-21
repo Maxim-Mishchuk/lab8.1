@@ -19,7 +19,7 @@ export const faqModule = {
             }
 
             faq.id = id;
-            state.groups.push(faq);
+            state.faq.push(faq);
         },
 
         deleteCheckedFAQ(state, checkedIDs) {

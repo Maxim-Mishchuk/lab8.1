@@ -8,6 +8,7 @@ import GroupForm from "@/pages/forms/GroupForm.vue";
 import ScheduleForm from "@/pages/forms/ScheduleForm.vue";
 import StudentForm from "@/pages/forms/StudentForm.vue";
 import TeacherForm from "@/pages/forms/TeacherForm.vue";
+import FAQForm from "@/pages/forms/FAQForm.vue";
 
 import DepartmentTable from "@/pages/tables/DepartmentTable.vue";
 import DisciplineTable from "@/pages/tables/DisciplineTable.vue";
@@ -65,6 +66,10 @@ const router = createRouter({
     {
       path: '/teacherForm',
       component: TeacherForm
+    },
+    {
+      path: '/faqForm',
+      component: FAQForm
     },
     {
       path: '/departmentTable',

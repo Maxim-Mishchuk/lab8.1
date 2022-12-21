@@ -79,13 +79,25 @@ export default {
 
     validate() {
       switch (this.typeValidation) {
+        case 'textWithNums':
+          return this.validateTextWithNums();
         case 'name':
           return this.validateName();
         case 'email':
           return this.validateEmail();
         case 'time':
-          return this.validateTime()
+          return this.validateTime();
       }
+    },
+
+    validateTextWithNums() {
+      if(this.modelValue.trim().length >= 2) {
+        this.message.text = 'Correct input!';
+        this.message.type = 1;
+        return true;
+      }
+      this.message.text = 'Input must have minimum 2 symbols';
+      this.message.type = 0
     },
 
     validateName() {

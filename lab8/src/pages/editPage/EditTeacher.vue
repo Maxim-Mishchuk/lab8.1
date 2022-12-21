@@ -43,14 +43,12 @@
 import { mapGetters,mapActions} from 'vuex';
 import customInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import CustomSubmit from "@/components/CustomSubmit.vue";
 
 export default {
   name: "EditTeacher",
   components: {
     customInput,
     MessageForm,
-    CustomSubmit
   },
   data() {
     return {

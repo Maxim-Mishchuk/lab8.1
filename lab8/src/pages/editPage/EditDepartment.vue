@@ -36,14 +36,12 @@
 import {mapActions, mapGetters, mapState} from 'vuex';
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import CustomSubmit from "@/components/CustomSubmit.vue";
 
 export default {
   name: "editDepartment",
   components: {
     CustomInput,
     MessageForm,
-    CustomSubmit
   },
   data(){
     return{

@@ -1,10 +1,17 @@
 export const faqModule = {
     state: () => ({
-        faq: []
+        faq: [
+            {
+                id:0,
+                question: 'who?',
+                answer: 'Me'
+            },
+
+        ]
     }),
 
     getters: {
-        getFAQbyID: state => id => {
+        getFAQByID: state => id => {
             return state.faq.find(faq => faq.id === id);
         }
     },
@@ -22,14 +29,13 @@ export const faqModule = {
             state.faq.push(faq);
         },
 
-        deleteCheckedFAQ(state, checkedIDs) {
-            checkedIDs = checkedIDs.map(id => parseInt(id));
+        deleteCheckedFAQ(state, id) {
             state.faq = state.faq
-                .filter(faq => !checkedIDs.includes(faq.id));
+                .filter(faq => faq.id !== id);
         },
 
         editFAQByID(state, faqForEdit) {
-            let faq = state.faq.find(faq => faq.id===faq.id)
+            let faq = state.faq.find(faq => faq.id===faqForEdit.id)
             faq.question = faqForEdit.question
             faq.answer = faqForEdit.answer
         }
@@ -40,8 +46,8 @@ export const faqModule = {
             commit('addFAQ', faq);
         },
 
-        deleteCheckedFAQ({ commit }, checkedIDs) {
-            commit('deleteCheckedFAQ', checkedIDs);
+        deleteCheckedFAQ({ commit }, id) {
+            commit('deleteCheckedFAQ', id);
         },
 
         editFAQByID({commit}, faqForEdit) {

@@ -1,7 +1,16 @@
 <template>
   <div v-for="faq in FAQs" class="faq-block">
-    <h2 class="faq-header">{{ faq.question + '?'}}</h2>
+    <h2 class="faq-header">{{faq.id}}) {{ faq.question + '?'}}</h2>
     <p class="faq-description">{{ faq.answer }}</p>
+
+    <router-link :to="{
+            name:'editFAQ',
+            params: {
+              id: faq.id,
+            }
+    }">
+      Edit
+    </router-link>
   </div>
 </template>
 

@@ -25,6 +25,7 @@ import EditGroup from "@/pages/editPage/EditGroup.vue";
 import EditSchedule from "@/pages/editPage/EditSchedule.vue";
 import EditStudent from "@/pages/editPage/EditStudent.vue";
 import EditTeacher from "@/pages/editPage/EditTeacher.vue";
+import EditFAQ from "@/pages/editPage/EditFAQ.vue";
 
 import FAQ from "@/pages/FAQ.vue";
 
@@ -161,6 +162,11 @@ const router = createRouter({
     {
       path: '/faq',
       component: FAQ
+    },
+    {
+      path: '/editFAQ/:id',
+      component: EditFAQ,
+      name: 'editFAQ'
     }
   ]
 })

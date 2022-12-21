@@ -21,6 +21,7 @@ export default {
   components: {
     CustomInput,
   },
+
   data() {
     return {
       validations: {

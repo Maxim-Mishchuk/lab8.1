@@ -1,35 +1,21 @@
 <template>
   <div v-for="faq in FAQs" class="faq-block">
-    <h2 class="faq-header">{{ faq.title + '?'}}</h2>
-    <p class="faq-description">{{ faq.body }}</p>
+    <h2 class="faq-header">{{ faq.question + '?'}}</h2>
+    <p class="faq-description">{{ faq.answer }}</p>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import {mapState} from "vuex";
 export default {
   name: "FAQ",
 
-  data() {
-    return {
-      FAQs: []
-    }
+  computed: {
+    ...mapState({
+      FAQs: state => state.faq.faq
+    })
   },
 
-  methods: {
-    async getFAQs() {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=5');
-        this.FAQs = response.data;
-      } catch (e) {
-        alert(e)
-      }
-    }
-  },
-
-  mounted() {
-    this.getFAQs();
-  }
 }
 </script>
 

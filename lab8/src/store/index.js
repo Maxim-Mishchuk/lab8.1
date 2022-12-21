@@ -6,6 +6,7 @@ import {studentsModule} from "@/store/modules/studentsModule";
 import {teachersModule} from "@/store/modules/teachersModule";
 import {disciplinesModule} from "@/store/modules/disciplinesModule";
 import {schedulesModule} from "@/store/modules/schedulesModule";
+import {faqModule} from "@/store/modules/faqModule";
 
 export default createStore({
     modules: {
@@ -15,6 +16,7 @@ export default createStore({
         students: studentsModule,
         teachers: teachersModule,
         disciplines: disciplinesModule,
-        schedules: schedulesModule
+        schedules: schedulesModule,
+        faq: faqModule
     },
 })

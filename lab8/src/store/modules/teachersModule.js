@@ -5,7 +5,7 @@ export const teachersModule = {
                 id:124,
                 name: 'a',
                 surname: 'a',
-                email: 'a@a',
+                email: 'a@a.com',
                 phone: 'a'
             }
         ]

@@ -149,6 +149,11 @@ const router = createRouter({
       name: 'editDepartment'
     },
     {
+      path: '/editSchedule/:id',
+      component: EditSchedule ,
+      name: 'editSchedule'
+    },
+    {
       path: '/faq',
       component: FAQ
     }

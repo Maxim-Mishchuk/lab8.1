@@ -4,7 +4,7 @@ export const schedulesModule = {
     }),
 
     getters: {
-        getScheduleByID(state, id) {
+        getScheduleByID: state=> id=> {
             return state.schedules.find(schedule => schedule.id===id)
         }
     },
@@ -27,7 +27,15 @@ export const schedulesModule = {
                 .filter(schedule => !checkedIDs.includes(schedule.id));
         },
 
-        editScheduleByID(state, id) {
+        editScheduleByID(state, scheduleForEdit) {
+            let schedule = state.schedules.find(schedule => schedule.id===scheduleForEdit.id)
+
+            schedule.name = scheduleForEdit.name
+            schedule.teacher_id =scheduleForEdit.teacher_id
+            schedule.discipline_id = scheduleForEdit.discipline_id
+            schedule.group_id = scheduleForEdit.group_id
+            schedule.time =scheduleForEdit.time
+            schedule.classroom = scheduleForEdit.classroom
 
         }
     },
@@ -38,6 +46,10 @@ export const schedulesModule = {
 
         deleteCheckedSchedules({ commit }, checkedIDs) {
             commit('deleteCheckedSchedules', checkedIDs);
+        },
+
+        editScheduleByID({ commit }, scheduleForEdit) {
+            commit('editScheduleByID', scheduleForEdit)
         }
     },
     namespaced: true

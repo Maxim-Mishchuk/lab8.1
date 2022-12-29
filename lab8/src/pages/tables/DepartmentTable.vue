@@ -13,21 +13,21 @@
       </thead>
       <tbody>
       <tr v-for="department in departments">
-        <td>{{ department.id }}</td>
-        <td>{{ faculties.find( faculty => faculty.id===parseInt(department.faculty_id)).name }}</td>
+        <td>{{ department._id }}</td>
+        <td>{{ faculties.find( faculty => faculty._id===department.faculty_id).short_name }}</td>
         <td>{{ department.name }}</td>
         <td>{{ department.short_name }}</td>
         <td>
           <router-link :to="{
             name:'editDepartment',
             params: {
-              id: department.id,
+              id: department._id,
             }
           }">
             Edit
           </router-link>
         </td>
-        <td><input @input="checkDepartment" type="checkbox" :value="department.id"></td>
+        <td><input @input="checkDepartment" type="checkbox" :value="department._id"></td>
       </tr>
       </tbody>
     </table>
@@ -44,7 +44,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters, mapState} from 'vuex'
 export default {
   name: "DepartmentTable",
   components: {
@@ -59,14 +59,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      departments: state => state.departments.departments,
-      faculties: state => state.faculties.faculties
+    ...mapGetters({
+      departments: 'departments/DEPARTMENTS',
+      faculties: 'faculties/FACULTIES'
     })
   },
   methods: {
     ...mapActions({
-      deleteCheckedDepartments: 'departments/deleteCheckedDepartments'
+      deleteCheckedDepartments: 'departments/REMOVE_DEPARTMENTS'
     }),
 
     checkDepartment(event) {

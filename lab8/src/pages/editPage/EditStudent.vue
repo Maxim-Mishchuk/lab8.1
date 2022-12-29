@@ -132,7 +132,7 @@ export default {
       },
 
       validateGroupID() {
-        if (!this.student.group_id) {
+        if (!this.getStudent.group_id) {
           this.validations.group_id = false;
           this.messages.messageGroupID.type = 0;
           this.messages.messageGroupID.text = 'Please, choose the groupID'

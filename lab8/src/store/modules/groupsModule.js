@@ -1,20 +1,6 @@
 export const groupsModule = {
     state: () => ({
-        groups: [
-            {
-                id:1,
-                department_id:1,
-                name:'a',
-                course:'1'
-            },
-            {
-                id:2,
-                department_id:1,
-                name:'b',
-                course:'2'
-            }
-
-        ]
+        groups: []
     }),
 
     getters: {

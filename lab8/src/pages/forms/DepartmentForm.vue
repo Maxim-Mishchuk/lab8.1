@@ -19,7 +19,7 @@
       <option value="">Faculty</option>
       <option
           v-for="faculty in faculties"
-          :value="faculty.id"
+          :value="faculty._id"
       >
         {{faculty.short_name}}
       </option>
@@ -37,7 +37,7 @@
 <script>
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "DepartmentForm",
   components: {
@@ -69,14 +69,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      faculties: state => state.faculties.faculties
+    ...mapGetters({
+      faculties: "faculties/FACULTIES"
     })
   },
 
   methods: {
     ...mapActions({
-      addDepartment: 'departments/addDepartment'
+      addDepartment: 'departments/SAVE_DEPARTMENTS'
     }),
 
     process() {

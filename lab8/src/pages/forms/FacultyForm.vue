@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      addFaculty: 'faculties/addFaculty',
+      addFaculty: 'faculties/SAVE_FACULTY',
     }),
 
     process() {

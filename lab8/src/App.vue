@@ -6,8 +6,21 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
 
+  methods: {
+    ...mapActions({
+      GET_FACULTIES: 'faculties/GET_FACULTIES',
+      GET_DEPARTMENTS: 'departments/GET_DEPARTMENTS'
+    })
+  },
+
+  mounted() {
+    this.GET_FACULTIES();
+    this.GET_DEPARTMENTS();
+  }
 }
 </script>
 

@@ -37,7 +37,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: Main
+      component: ScheduleTable
     },
 
     {

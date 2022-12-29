@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit faculty: {{ getFacultyByID(getFaculty.id).short_name }}</h2>
+    <h2>Edit faculty: {{ FACULTY_BY_ID($route.params.id).short_name }}</h2>
     <custom-input
         type-validation="name"
         placeholder="Name"
@@ -13,7 +13,6 @@
         v-model="getFaculty.short_name"
         v-model:validation-value="validations.short_name"
     />
-
 
       <custom-submit @click="process" value="Edit"/>
 
@@ -43,15 +42,15 @@ export default {
 
   computed:{
     ...mapGetters({
-      getFacultyByID: 'faculties/getFacultyByID'
+      FACULTY_BY_ID: 'faculties/FACULTY_BY_ID'
     }),
     getFaculty(){
-      return Object.assign({}, this.getFacultyByID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.FACULTY_BY_ID(this.$route.params.id))
     }
   },
   methods: {
     ...mapActions({
-      editFacultyByID: "faculties/editFacultyByID"
+      editFacultyByID: "faculties/UPDATE_FACULTY"
 
     }),
 

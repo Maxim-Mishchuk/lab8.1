@@ -12,7 +12,7 @@
       </thead>
       <tbody>
       <tr v-for="faculty in faculties">
-        <td>{{ faculty.id }}</td>
+        <td>{{ faculty._id }}</td>
         <td>{{ faculty.name }}</td>
         <td>{{ faculty.short_name }}</td>
         <td>
@@ -20,13 +20,13 @@
           {
             name:'editFaculty',
             params: {
-              id: faculty.id,
+              id: faculty._id,
             }
           }">
             Edit
           </router-link>
         </td>
-        <td><input @input="checkFaculty" type="checkbox" :value="faculty.id"></td>
+        <td><input @input="checkFaculty" type="checkbox" :value="faculty._id"></td>
       </tr>
       </tbody>
     </table>
@@ -42,7 +42,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 export default {
   name: "FacultyTable",
   components: {
@@ -55,13 +55,13 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      faculties: state => state.faculties.faculties,
+    ...mapGetters({
+      faculties: 'faculties/FACULTIES'
     })
   },
   methods: {
     ...mapActions({
-      deleteCheckedFaculties: 'faculties/deleteCheckedFaculties'
+      REMOVE_FACULTIES: 'faculties/REMOVE_FACULTIES'
     }),
 
     checkFaculty(event) {
@@ -80,7 +80,7 @@ export default {
 
     process() {
       if (this.actionToDo === 'delete') {
-        this.deleteCheckedFaculties(this.checkedEvents.map(current_event => current_event.target.value));
+        this.REMOVE_FACULTIES(this.checkedEvents.map(current_event => current_event.target.value));
         this.uncheckCheckboxes();
       }
     },
@@ -89,7 +89,7 @@ export default {
       this.checkedEvents = this.checkedEvents.map(current_event => current_event.target.checked = false);
       this.checkedEvents = [];
     }
-  }
+  },
 }
 </script>
 

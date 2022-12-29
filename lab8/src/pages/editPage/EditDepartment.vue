@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit department: {{ getDepartmentByID(getDepartment.id).short_name }}</h2>
+    <h2>Edit department: {{ DEPARTMENT_BY_ID($route.params.id).short_name }}</h2>
     <custom-input
         placeholder="Name"
         type-validation="name"
@@ -17,7 +17,7 @@
     <select @click="validateFacultyID" v-model="getDepartment.faculty_id">
       <option
           v-for="faculty in faculties"
-          :value="faculty.id"
+          :value="faculty._id"
       >
         {{faculty.short_name}}
       </option>
@@ -61,22 +61,20 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      faculties: state => state.faculties.faculties
-    }),
     ...mapGetters({
-      getDepartmentByID: 'departments/getDepartmentByID'
+      DEPARTMENT_BY_ID: 'departments/DEPARTMENT_BY_ID',
+      faculties: 'faculties/FACULTIES'
     }),
 
     getDepartment(){
-      return Object.assign({}, this.getDepartmentByID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.DEPARTMENT_BY_ID(this.$route.params.id))
     }
 
   },
 
   methods: {
     ...mapActions({
-      editDepartmentByID: 'departments/editDepartmentByID'
+      editDepartmentByID: 'departments/UPDATE_DEPARTMENT'
     }),
 
     process() {

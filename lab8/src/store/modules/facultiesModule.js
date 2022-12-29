@@ -1,59 +1,63 @@
+import axios from "axios";
+
 export const facultiesModule = {
     state: () => ({
-        faculties: [
-            {
-                id:1,
-                name:'a',
-                short_name:'a'
-            },
-            {
-                id:2,
-                name:'b',
-                short_name:'b'
-            }
-        ]
+        faculties: []
     }),
+
     getters: {
-        getFacultyByID: state=> id=> {
-            return state.faculties.find(faculty => faculty.id===id)
+        FACULTY_BY_ID: state => id => {
+            return state.faculties.find(faculty => faculty._id===id)
+        },
+
+        FACULTIES: state => {
+            return state.faculties
         }
     },
 
     mutations: {
-        addFaculty(state, faculty) {
-            let id;
-            if (state.faculties.length === 0) {
-                id = 0;
-            } else if (state.faculties.length > 0) {
-                id = state.faculties[state.faculties.length-1].id + 1;
-            }
-            faculty.id = id;
+        SET_FACULTIES: (state, faculties) => {
+            state.faculties = faculties;
+        },
+
+        ADD_FACULTY: (state, faculty) => {
             state.faculties.push(faculty);
         },
 
-        deleteCheckedFaculties(state, checkedIDs) {
-            checkedIDs = checkedIDs.map(id => parseInt(id));
-            state.faculties = state.faculties
-                .filter(faculty => !checkedIDs.includes(faculty.id));
+        PUT_FACULTY: (state, newFaculty) => {
+            let facultyForEdit = state.faculties.find(faculty => faculty._id === newFaculty._id);
+            facultyForEdit.name = newFaculty.name;
+            facultyForEdit.short_name = newFaculty.short_name;
         },
 
-        editFacultyByID(state, facultyForEdit) {
-            let faculty = state.faculties.find( faculty => faculty.id===facultyForEdit.id)
-            faculty.name=facultyForEdit.name
-            faculty.short_name=facultyForEdit.short_name
+        DELETE_FACULTY: (state, id) => {
+            state.faculties = state.faculties.filter(faculty => faculty._id !== id)
         }
     },
 
     actions: {
-        addFaculty({ commit }, faculty) {
-            commit('addFaculty', faculty);
+        GET_FACULTIES: async ({ commit }) => {
+            let { data } = await axios.get('http://localhost:5000/faculties/')
+            commit('SET_FACULTIES', data);
         },
 
-        deleteCheckedFaculties({ commit }, checkedIDs) {
-            commit('deleteCheckedFaculties', checkedIDs);
+        SAVE_FACULTY: async ({ commit }, faculty) => {
+            let {data} = await axios.post('http://localhost:5000/faculties/', faculty)
+            commit('ADD_FACULTY', faculty);
         },
-        editFacultyByID({commit}, facultyForEdit) {
-            commit('editFacultyByID', facultyForEdit )
+
+        UPDATE_FACULTY: async ({ commit }, faculty) => {
+            let {data} = await axios.put('http://localhost:5000/faculties/', faculty)
+            commit('PUT_FACULTY', faculty);
+        },
+
+        REMOVE_FACULTY: async ({ commit }, id) => {
+            let {data} = await axios.delete("http://localhost:5000/faculties/" + id)
+            commit('DELETE_FACULTY', id);
+        },
+
+        REMOVE_FACULTIES: async ({ commit, dispatch }, ids) => {
+            ids.forEach( id => dispatch('REMOVE_FACULTY', id) )
         }
     },
     namespaced: true

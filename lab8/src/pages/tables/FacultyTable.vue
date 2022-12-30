@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      REMOVE_FACULTIES: 'faculties/REMOVE_FACULTIES'
+      deleteCheckedFaculties: 'faculties/REMOVE_FACULTIES'
     }),
 
     checkFaculty(event) {
@@ -80,7 +80,7 @@ export default {
 
     process() {
       if (this.actionToDo === 'delete') {
-        this.REMOVE_FACULTIES(this.checkedEvents.map(current_event => current_event.target.value));
+        this.deleteCheckedFaculties(this.checkedEvents.map(current_event => current_event.target.value));
         this.uncheckCheckboxes();
       }
     },

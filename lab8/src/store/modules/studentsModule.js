@@ -1,59 +1,66 @@
+import axios from "axios";
+
 export const studentsModule = {
     state: () => ({
-        students: [
-            {
-                id:1,
-                group_id: 1,
-                name: 'a',
-                email: 'a@a',
-                phone: '123'
-            }
-        ]
+        students: []
     }),
 
     getters: {
-        getStudentByID: state => id=> {
-            return state.students.find(student => student.id===id)
+        STUDENT_BY_ID: state => id=> {
+            return state.students.find(student => student._id===id)
+        },
+
+        STUDENTS: state => {
+            return state.students;
         }
     },
 
     mutations: {
-        addStudent(state, student) {
-            let id;
-            if (state.students.length === 0) {
-                id = 0;
-            } else if (state.students.length > 0) {
-                id = state.students[state.students.length-1].id + 1;
-            }
-            student.id = id;
+        SET_STUDENTS: (state, students) => {
+          state.students =  students
+        },
+
+        ADD_STUDENT: (state, student) => {
             state.students.push(student);
         },
 
-        deleteCheckedStudents(state, checkedIDs) {
-            checkedIDs = checkedIDs.map(id => parseInt(id));
-            state.students = state.students
-                .filter(student => !checkedIDs.includes(student.id));
-        },
-
-        editStudentByID(state, studentForEdit) {
-            let student = state.students.find(student => student.id===studentForEdit.id)
+        PUT_STUDENT: (state, studentForEdit) => {
+            let student = state.students.find(student => student._id===studentForEdit._id)
             student.name=studentForEdit.name
             student.email=studentForEdit.email
             student.group_id=studentForEdit.group_id
             student.phone=studentForEdit.phone
-        }
-    },
-    actions: {
-        addStudent({ commit }, student) {
-            commit('addStudent', student);
         },
 
-        deleteCheckedStudents({ commit }, checkedIDs) {
-            commit('deleteCheckedStudents', checkedIDs);
+        DELETE_STUDENT: (state, id) => {
+            state.students = state.students.filter(student => student._id !== id);
+        }
+    },
+
+    actions: {
+        GET_STUDENTS: async ({ commit }) => {
+            let { data } = await axios.get('http://localhost:5000/students/')
+            commit('SET_STUDENTS', data);
         },
-        editStudentByID({commit}, studentForEdit) {
-            commit('editStudentByID', studentForEdit);
+
+        SAVE_STUDENT: async ({ commit }, student) => {
+            let {data} = await axios.post('http://localhost:5000/students/', student)
+            commit('ADD_STUDENT', student);
         },
+
+        UPDATE_STUDENT: async ({ commit }, student) => {
+            let {data} = await axios.put('http://localhost:5000/students/', student)
+            commit('PUT_STUDENT', student);
+        },
+
+        REMOVE_STUDENT: async ({ commit }, id) => {
+            let {data} = await axios.delete("http://localhost:5000/students/" + id)
+            commit('DELETE_STUDENT', id);
+        },
+
+        REMOVE_STUDENTS: async ({ commit, dispatch }, ids) => {
+            ids.forEach( id => dispatch('REMOVE_STUDENT', id) )
+        }
     },
 
     namespaced:true

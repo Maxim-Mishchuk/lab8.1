@@ -14,8 +14,8 @@
       </thead>
       <tbody>
       <tr v-for="student in students">
-        <td>{{ student.id }}</td>
-        <td>{{ groups.find(group => group.id===parseInt(student.group_id)).name }}</td>
+        <td>{{ student._id }}</td>
+        <td>{{ groupByID(student.group_id).name }}</td>
         <td>{{ student.name }}</td>
         <td>{{ student.email }}</td>
         <td>{{ student.phone }}</td>
@@ -24,13 +24,13 @@
           {
             name:'editStudent',
             params: {
-              id: student.id,
+              id: student._id,
             }
           }">
             Edit
           </router-link>
         </td>
-        <td><input @input="checkStudent" type="checkbox" :value="student.id"></td>
+        <td><input @input="checkStudent" type="checkbox" :value="student._id"></td>
       </tr>
       </tbody>
     </table>
@@ -46,7 +46,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "StudentTable",
   components: {
@@ -61,16 +61,15 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      students: state => state.students.students,
-
-      groups: state => state.groups.groups
+    ...mapGetters({
+      students: "students/STUDENTS",
+      groupByID: "groups/GROUP_BY_ID"
     })
   },
 
   methods: {
     ...mapActions({
-      deleteCheckedStudents: 'students/deleteCheckedStudents'
+      deleteCheckedStudents: 'students/REMOVE_STUDENTS'
     }),
 
     checkStudent(event) {

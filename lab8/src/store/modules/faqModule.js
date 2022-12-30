@@ -1,57 +1,65 @@
+import axios from "axios";
+
 export const faqModule = {
     state: () => ({
-        faq: [
-            {
-                id:0,
-                question: 'who?',
-                answer: 'Me'
-            },
-
-        ]
+        faq: []
     }),
 
     getters: {
-        getFAQByID: state => id => {
-            return state.faq.find(faq => faq.id === id);
+        FAQ_BY_ID: state => id => {
+            return state.faq.find(faq => faq._id === id);
+        },
+
+        FAQs: state => {
+            return state.faq
         }
     },
 
     mutations: {
-        addFAQ(state, faq) {
-            let id;
-            if (state.faq.length === 0) {
-                id = 0;
-            } else if (state.faq.length > 0) {
-                id = state.faq[state.faq.length-1].id + 1;
-            }
+        SET_FAQS: (state, faqs) => {
+            state.faq = faqs
+        },
 
-            faq.id = id;
+        ADD_FAQ: (state, faq) => {
             state.faq.push(faq);
         },
 
-        deleteCheckedFAQ(state, id) {
-            state.faq = state.faq
-                .filter(faq => faq.id !== id);
-        },
+        PUT_FAQ(state, faqForEdit) {
+            let faq = state.faq.find(faq => faq._id===faqForEdit._id)
 
-        editFAQByID(state, faqForEdit) {
-            let faq = state.faq.find(faq => faq.id===faqForEdit.id)
             faq.question = faqForEdit.question
             faq.answer = faqForEdit.answer
-        }
+        },
+
+        DELETE_FAQ: (state, id) => {
+            state.faq = state.faq
+                .filter(faq => faq._id !== id);
+        },
     },
 
     actions: {
-        addFAQ({ commit }, faq) {
-            commit('addFAQ', faq);
+        GET_FAQS: async ({ commit }) => {
+            let { data } = await axios.get('http://localhost:5000/faq/')
+            commit('SET_FAQS', data);
         },
 
-        deleteCheckedFAQ({ commit }, id) {
-            commit('deleteCheckedFAQ', id);
+        SAVE_FAQ: async ({ commit }, faq) => {
+            let {data} = await axios.post('http://localhost:5000/faq/', faq)
+            commit('ADD_FAQ', faq);
         },
 
-        editFAQByID({commit}, faqForEdit) {
-            commit('editFAQByID', faqForEdit)
+        UPDATE_FAQ: async ({ commit }, faq) => {
+            let {data} = await axios.put('http://localhost:5000/faq/', faq)
+            commit('PUT_FAQ', faq);
+        },
+
+        REMOVE_FAQ: async ({ commit }, id) => {
+            let {data} = await axios.delete("http://localhost:5000/schedules/" + id)
+            commit('DELETE_FAQ', id);
+        },
+
+        REMOVE_FAQS: async ({ commit, dispatch }, ids) => {
+            ids.forEach( id => dispatch('REMOVE_SCHEDULE', id) )
         }
     },
     namespaced: true

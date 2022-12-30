@@ -1,34 +1,32 @@
+import axios from "axios";
+
 export const schedulesModule = {
     state: () => ({
         schedules: []
     }),
 
     getters: {
-        getScheduleByID: state=> id=> {
-            return state.schedules.find(schedule => schedule.id===id)
+        SCHEDULE_BY_ID: state => id => {
+            return state.schedules.find(schedule => schedule._id === id)
+        },
+
+        SCHEDULES: state => {
+            return state.schedules
         }
     },
 
     mutations: {
-        addSchedule(state, schedule) {
-            let id;
-            if (state.schedules.length === 0) {
-                id = 0;
-            } else if (state.schedules.length > 0) {
-                id = state.schedules[state.schedules.length-1].id + 1;
-            }
-            schedule.id = id;
+        SET_SCHEDULES: (state, schedules) => {
+            state.schedules = schedules
+        },
+
+        ADD_SCHEDULE: (state, schedule) => {
             state.schedules.push(schedule);
         },
 
-        deleteCheckedSchedules(state, checkedIDs) {
-            checkedIDs = checkedIDs.map(id => parseInt(id));
-            state.schedules = state.schedules
-                .filter(schedule => !checkedIDs.includes(schedule.id));
-        },
 
-        editScheduleByID(state, scheduleForEdit) {
-            let schedule = state.schedules.find(schedule => schedule.id===scheduleForEdit.id)
+        PUT_SCHEDULE: (state, scheduleForEdit) => {
+            let schedule = state.schedules.find(schedule => schedule._id === scheduleForEdit._id)
 
             schedule.name = scheduleForEdit.name
             schedule.teacher_id =scheduleForEdit.teacher_id
@@ -36,20 +34,35 @@ export const schedulesModule = {
             schedule.group_id = scheduleForEdit.group_id
             schedule.time =scheduleForEdit.time
             schedule.classroom = scheduleForEdit.classroom
+        },
 
+        DELETE_SCHEDULE: (state, id) => {
+            state.schedules = state.schedules.filter(schedule => schedule._id !== id)
         }
     },
     actions: {
-        addSchedule({ commit }, schedule) {
-            commit('addSchedule', schedule)
+        GET_SCHEDULES: async ({ commit }) => {
+            let { data } = await axios.get('http://localhost:5000/schedules/')
+            commit('SET_SCHEDULES', data);
         },
 
-        deleteCheckedSchedules({ commit }, checkedIDs) {
-            commit('deleteCheckedSchedules', checkedIDs);
+        SAVE_SCHEDULE: async ({ commit }, schedule) => {
+            let {data} = await axios.post('http://localhost:5000/schedules/', schedule)
+            commit('ADD_SCHEDULE', schedule);
         },
 
-        editScheduleByID({ commit }, scheduleForEdit) {
-            commit('editScheduleByID', scheduleForEdit)
+        UPDATE_SCHEDULE: async ({ commit }, schedule) => {
+            let {data} = await axios.put('http://localhost:5000/schedules/', schedule)
+            commit('PUT_SCHEDULE', schedule);
+        },
+
+        REMOVE_SCHEDULE: async ({ commit }, id) => {
+            let {data} = await axios.delete("http://localhost:5000/schedules/" + id)
+            commit('DELETE_SCHEDULE', id);
+        },
+
+        REMOVE_SCHEDULES: async ({ commit, dispatch }, ids) => {
+            ids.forEach( id => dispatch('REMOVE_SCHEDULE', id) )
         }
     },
     namespaced: true

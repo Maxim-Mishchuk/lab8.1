@@ -14,7 +14,7 @@
       </thead>
       <tbody>
       <tr v-for="teacher in teachers">
-        <td>{{ teacher.id }}</td>
+        <td>{{ teacher._id }}</td>
         <td>{{ teacher.name }}</td>
         <td>{{ teacher.surname }}</td>
         <td>{{ teacher.email }}</td>
@@ -24,13 +24,13 @@
           {
             name:'editTeacher',
             params: {
-              id: teacher.id,
+              id: teacher._id,
             }
           }">
             Edit
           </router-link>
         </td>
-        <td><input @input="checkTeacher" type="checkbox" :value="teacher.id"></td>
+        <td><input @input="checkTeacher" type="checkbox" :value="teacher._id"></td>
       </tr>
       </tbody>
     </table>
@@ -46,7 +46,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from 'vuex';
+import {mapActions, mapGetters, mapState} from 'vuex';
 export default {
   name: "TeacherTable",
   components: {
@@ -61,14 +61,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      teachers: state => state.teachers.teachers
+    ...mapGetters({
+      teachers: "teachers/TEACHERS"
     })
   },
 
   methods: {
     ...mapActions({
-      deleteCheckedTeachers: 'teachers/deleteCheckedTeachers'
+      deleteCheckedTeachers: 'teachers/REMOVE_TEACHERS'
     }),
 
     checkTeacher(event) {

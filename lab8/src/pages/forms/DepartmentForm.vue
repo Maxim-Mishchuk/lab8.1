@@ -82,7 +82,7 @@ export default {
     process() {
       if(this.validateDepartment()) {
         this.addDepartment({...this.department});
-        this.clearAllFields();
+        this.$router.go();;
       }
     },
 

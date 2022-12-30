@@ -1,51 +1,65 @@
+import axios from "axios";
+
 export const groupsModule = {
     state: () => ({
         groups: []
     }),
 
     getters: {
-        getGroupByID: state=> id=> {
-            return state.groups.find(group => group.id===id)
+        GROUP_BY_ID: state=> id=> {
+            return state.groups.find(group => group._id===id);
+        },
+
+        GROUPS: state => {
+            return state.groups;
         }
     },
 
     mutations: {
-        addGroup(state, group) {
-            let id;
-            if (state.groups.length === 0) {
-                id = 0;
-            } else if (state.groups.length > 0) {
-                id = state.groups[state.groups.length-1].id + 1;
-            }
-            group.id = id;
+        SET_GROUPS: (state, groups) => {
+          state.groups = groups;
+        },
+
+        ADD_GROUP: (state, group) => {
             state.groups.push(group);
         },
 
-        deleteCheckedGroups(state, checkedIDs) {
-            checkedIDs = checkedIDs.map(id => parseInt(id));
-            state.groups = state.groups
-                .filter(group => !checkedIDs.includes(group.id));
-        },
-
-        editGroupByID(state, groupForEdit) {
-            let group = state.groups.find(group => group.id===groupForEdit.id)
+        PUT_GROUP: (state, groupForEdit) => {
+            let group = state.groups.find(group => group._id === groupForEdit._id)
             group.name=groupForEdit.name
             group.course=groupForEdit.course
             group.department_id=groupForEdit.department_id
+        },
 
+        DELETE_GROUP: (state, id) => {
+            state.groups = state.groups.filter(group => group._id !== id)
         }
+
     },
 
     actions: {
-        addGroup({ commit }, group) {
-            commit('addGroup', group);
+        GET_GROUPS: async ({ commit }) => {
+            let { data } = await axios.get('http://localhost:5000/groups/')
+            commit('SET_GROUPS', data);
         },
 
-        deleteCheckedGroups({ commit }, checkedIDs) {
-            commit('deleteCheckedGroups', checkedIDs);
+        SAVE_GROUP: async ({ commit }, group) => {
+            let {data} = await axios.post('http://localhost:5000/groups/', group)
+            commit('ADD_GROUP', group);
         },
-        editGroupByID({commit}, groupForEdit) {
-            commit('editGroupByID', groupForEdit)
+
+        UPDATE_GROUP: async ({ commit }, group) => {
+            let {data} = await axios.put('http://localhost:5000/groups/', group)
+            commit('PUT_GROUP', group);
+        },
+
+        REMOVE_GROUP: async ({ commit }, id) => {
+            let {data} = await axios.delete("http://localhost:5000/groups/" + id)
+            commit('DELETE_GROUP', id);
+        },
+
+        REMOVE_GROUPS: async ({ commit, dispatch }, ids) => {
+            ids.forEach( id => dispatch('REMOVE_GROUP', id) )
         }
     },
     namespaced: true

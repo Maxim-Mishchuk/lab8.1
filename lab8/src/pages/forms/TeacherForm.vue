@@ -76,13 +76,13 @@ export default {
   },
   methods: {
     ...mapActions({
-      addTeacher: 'teachers/addTeacher'
+      addTeacher: 'teachers/SAVE_TEACHER'
     }),
 
     process() {
       if(this.validateTeacher()) {
         this.addTeacher({...this.teacher})
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 

@@ -1,6 +1,6 @@
 <template>
   <form action="" method="post" @submit.prevent>
-    <h2>Edit discipline: {{ getDisciplineByID(getDiscipline.id).name }}</h2>
+    <h2>Edit discipline: {{ disciplineByID($route.params.id).name }}</h2>
     <custom-input
         type-validation="name"
         placeholder="Name"
@@ -32,16 +32,16 @@ export default {
 
   computed: {
     ...mapGetters({
-      getDisciplineByID: "disciplines/getDisciplineByID"
+      disciplineByID: "disciplines/DISCIPLINE_BY_ID"
     }),
     getDiscipline(){
-      return Object.assign({}, this.getDisciplineByID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.disciplineByID(this.$route.params.id))
     }
   },
 
   methods: {
     ...mapActions({
-      editDisciplineByID: "disciplines/editDisciplineByID"
+      editDisciplineByID: "disciplines/UPDATE_DISCIPLINE"
 
     }),
 

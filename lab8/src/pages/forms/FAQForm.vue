@@ -43,13 +43,13 @@ export default {
 
   methods: {
     ...mapActions({
-      addFAQ: 'faq/addFAQ'
+      addFAQ: 'faq/SAVE_FAQ'
     }),
 
     process() {
       if (this.validateFAQ()) {
         this.addFAQ({...this.faq});
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 

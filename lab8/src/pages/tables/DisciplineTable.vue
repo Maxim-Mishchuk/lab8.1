@@ -12,20 +12,20 @@
       </thead>
       <tbody>
         <tr v-for="discipline in disciplines">
-          <td>{{ discipline.id }}</td>
+          <td>{{ discipline._id }}</td>
           <td>{{ discipline.name }}</td>
           <td>
             <router-link :to="
             {
               name:'editDiscipline',
               params: {
-                id: discipline.id,
+                id: discipline._id,
               }
             }">
               Edit
             </router-link>
           </td>
-          <td><input @input="checkDiscipline" type="checkbox" :value="discipline.id"></td>
+          <td><input @input="checkDiscipline" type="checkbox" :value="discipline._id"></td>
         </tr>
       </tbody>
     </table>
@@ -41,7 +41,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 export default {
   name: "DisciplineTable",
   components: {
@@ -56,14 +56,14 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      disciplines: state => state.disciplines.disciplines
+    ...mapGetters({
+      disciplines: "disciplines/DISCIPLINES"
     })
   },
 
   methods: {
     ...mapActions({
-      deleteCheckedDisciplines: 'disciplines/deleteCheckedDisciplines'
+      deleteCheckedDisciplines: 'disciplines/REMOVE_DISCIPLINES'
     }),
 
     checkDiscipline(event) {

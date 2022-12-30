@@ -13,8 +13,8 @@
       </thead>
       <tbody>
       <tr v-for="group in groups">
-        <td>{{ group.id }}</td>
-        <td>{{ departments.find(department => department.id===parseInt(group.department_id)).name }}</td>
+        <td>{{ group._id }}</td>
+        <td>{{ departmentByID(group.department_id).short_name}}</td>
         <td>{{ group.name }}</td>
         <td>{{ group.course }}</td>
         <td>
@@ -22,13 +22,13 @@
           {
             name:'editGroup',
             params: {
-              id: group.id
+              id: group._id
             }
           }">
             Edit
           </router-link>
         </td>
-        <td><input @input="checkGroup" type="checkbox" :value="group.id"></td>
+        <td><input @input="checkGroup" type="checkbox" :value="group._id"></td>
       </tr>
       </tbody>
     </table>
@@ -44,7 +44,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "GroupTable",
@@ -60,15 +60,15 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      groups: state => state.groups.groups,
-      departments: state => state.departments.departments
+    ...mapGetters({
+      groups: 'groups/GROUPS',
+      departmentByID: 'departments/DEPARTMENT_BY_ID',
     })
   },
 
   methods: {
     ...mapActions({
-      deleteCheckedGroups: 'groups/deleteCheckedGroups'
+      deleteCheckedGroups: 'groups/REMOVE_GROUPS'
     }),
 
     checkGroup(event) {

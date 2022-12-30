@@ -49,7 +49,7 @@ export default {
     process() {
       if(this.validateFaculty()) {
         this.addFaculty({...this.faculty});
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 

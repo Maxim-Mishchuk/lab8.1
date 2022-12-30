@@ -25,7 +25,7 @@
       <option value="">Department</option>
       <option
           v-for="department in departments"
-          :value="department.id"
+          :value="department._id"
       >
         {{department.short_name}}
       </option>
@@ -44,7 +44,7 @@
 <script>
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "GroupForm",
   components: {
@@ -81,20 +81,20 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      departments: state => state.departments.departments
+    ...mapGetters({
+      departments: "departments/DEPARTMENTS"
     })
   },
 
   methods: {
     ...mapActions({
-      addGroup: 'groups/addGroup'
+      addGroup: 'groups/SAVE_GROUP'
     }),
 
     process() {
       if (this.validateGroup()) {
         this.addGroup({...this.group});
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 

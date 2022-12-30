@@ -1,12 +1,12 @@
 <template>
   <div v-for="faq in FAQs" class="faq-block">
-    <h2 class="faq-header">{{faq.id}}) {{ faq.question + '?'}}</h2>
+    <h2 class="faq-header">{{ faq.question + '?'}}</h2>
     <p class="faq-description">{{ faq.answer }}</p>
 
     <router-link :to="{
             name:'editFAQ',
             params: {
-              id: faq.id,
+              id: faq._id,
             }
     }">
       Edit
@@ -15,13 +15,15 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapGetters} from "vuex";
 export default {
   name: "FAQ",
 
   computed: {
-    ...mapState({
-      FAQs: state => state.faq.faq
+
+
+    ...mapGetters({
+      FAQs: "faq/FAQs"
     })
   },
 

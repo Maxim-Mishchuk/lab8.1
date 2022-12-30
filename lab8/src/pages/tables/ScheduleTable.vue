@@ -16,11 +16,11 @@
       </thead>
       <tbody>
       <tr v-for="schedule in schedules">
-        <td>{{ schedule.id }}</td>
+        <td>{{ schedule._id }}</td>
         <td>{{ schedule.name }}</td>
-        <td>{{ schedule.teacher_id }}</td>
-        <td>{{ schedule.discipline_id }}</td>
-        <td>{{ schedule.group_id }}</td>
+        <td>{{ teacherByID(schedule.teacher_id).name + " " + teacherByID(schedule.teacher_id).surname }}</td>
+        <td>{{ disciplineByID(schedule.discipline_id).name }}</td>
+        <td>{{ groupByID(schedule.group_id).name }}</td>
         <td>{{ schedule.time }}</td>
         <td>{{ schedule.classroom }}</td>
         <td>
@@ -28,13 +28,13 @@
           {
             name:'editSchedule',
             params: {
-              id: schedule.id,
+              id: schedule._id,
             }
           }">
             Edit
           </router-link>
         </td>
-        <td><input @input="checkSchedule" type="checkbox" :value="schedule.id"></td>
+        <td><input @input="checkSchedule" type="checkbox" :value="schedule._id"></td>
       </tr>
       </tbody>
     </table>
@@ -50,7 +50,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "ScheduleTable",
   components: {
@@ -65,14 +65,18 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      schedules: state => state.schedules.schedules
+    ...mapGetters({
+      schedules: "schedules/SCHEDULES",
+
+      teacherByID: "teachers/TEACHER_BY_ID",
+      disciplineByID: "disciplines/DISCIPLINE_BY_ID",
+      groupByID: "groups/GROUP_BY_ID"
     })
   },
 
   methods: {
     ...mapActions({
-      deleteCheckedSchedules: 'schedules/deleteCheckedSchedules'
+      deleteCheckedSchedules: 'schedules/REMOVE_SCHEDULES'
     }),
 
     checkSchedule(event) {

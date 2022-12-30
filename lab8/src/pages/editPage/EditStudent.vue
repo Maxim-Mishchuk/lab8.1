@@ -1,6 +1,9 @@
 <template>
-  <form action="" method="post" @submit.prevent>
-    <h2>Edit student: {{ getStudentByID(getStudent.id).name }}, Group: {{ groups[getStudentByID(getStudent.id).group_id].name }}</h2>
+  <form @submit.prevent>
+    <h2>
+      Edit student: {{ studentByID($route.params.id).name }},
+      Group: {{ groupByID(getStudent.group_id).name }}
+    </h2>
 
     <custom-input
         placeholder="Name"
@@ -30,7 +33,7 @@
     <select v-model="getStudent.group_id" name="">
       <option
           v-for="group in groups"
-          :value="group.id"
+          :value="group._id"
       >
         {{ group.name }}
       </option>
@@ -47,7 +50,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
 
@@ -83,23 +86,21 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      groups: state => state.groups.groups
+    ...mapGetters({
+      studentByID: 'students/STUDENT_BY_ID',
+      groups: "groups/GROUPS",
+      groupByID: "groups/GROUP_BY_ID"
     }),
 
     getStudent() {
-      return  Object.assign({}, this.getStudentByID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.studentByID(this.$route.params.id))
     },
-
-    ...mapGetters({
-      getStudentByID: 'students/getStudentByID'
-    }),
   },
 
 
     methods: {
       ...mapActions({
-        editStudentByID: 'students/editStudentByID'
+        editStudentByID: 'students/UPDATE_STUDENT'
       }),
 
       process() {

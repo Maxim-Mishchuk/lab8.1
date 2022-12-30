@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {mapActions, mapGetters, mapState} from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
 import CustomSubmit from "@/components/CustomSubmit.vue";
@@ -41,17 +41,17 @@ export default {
   },
   computed:{
     ...mapGetters({
-      getFAQbyID: 'faq/getFAQByID'
+      FAQbyID: 'faq/FAQ_BY_ID'
     }),
     getFAQ(){
-      return Object.assign({}, this.getFAQbyID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.FAQbyID(this.$route.params.id))
     }
   },
 
   methods: {
     ...mapActions({
-      editFAQByID: 'faq/editFAQByID',
-      deleteCheckedFAQ: 'faq/deleteCheckedFAQ'
+      editFAQByID: 'faq/UPDATE_FAQ',
+      deleteCheckedFAQ: 'faq/REMOVE_FAQS'
     }),
 
     process() {

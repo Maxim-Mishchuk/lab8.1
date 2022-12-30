@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit faculty: {{ FACULTY_BY_ID($route.params.id).short_name }}</h2>
+    <h2>Edit faculty: {{ facultyByID($route.params.id).short_name }}</h2>
     <custom-input
         type-validation="name"
         placeholder="Name"
@@ -42,10 +42,10 @@ export default {
 
   computed:{
     ...mapGetters({
-      FACULTY_BY_ID: 'faculties/FACULTY_BY_ID'
+      facultyByID: 'faculties/FACULTY_BY_ID'
     }),
     getFaculty(){
-      return Object.assign({}, this.FACULTY_BY_ID(this.$route.params.id))
+      return Object.assign({}, this.facultyByID(this.$route.params.id))
     }
   },
   methods: {

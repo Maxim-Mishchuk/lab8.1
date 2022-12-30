@@ -1,6 +1,6 @@
 <template>
-  <form action="" method="post" @submit.prevent>
-    <h2>Edit schedule</h2>
+  <form @submit.prevent>
+    <h2>Edit schedule: {{ scheduleByID($route.params.id).name }}</h2>
 
     <custom-input
         placeholder="Name"
@@ -28,7 +28,7 @@
       <option value="">Teacher</option>
       <option
           v-for="teacher in teachers"
-          :value="teacher.id"
+          :value="teacher._id"
       >
         {{ teacher.name+" "+teacher.surname }}
       </option>
@@ -42,7 +42,7 @@
       <option value="">Discipline</option>
       <option
           v-for="discipline in disciplines"
-          :value="discipline.id"
+          :value="discipline._id"
       >
         {{ discipline.name }}
       </option>
@@ -56,7 +56,7 @@
       <option value="">Group</option>
       <option
           v-for="group in groups"
-          :value="group.id"
+          :value="group._id"
       >
         {{ group.name }}
       </option>
@@ -73,7 +73,7 @@
 <script>
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import CustomSubmit from "@/components/CustomSubmit.vue";
 export default {
   name: "EditSchedule",
@@ -114,22 +114,21 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      teachers: state => state.teachers.teachers,
-      disciplines: state => state.disciplines.disciplines,
-      groups: state => state.groups.groups
-    }),
     ...mapGetters({
-      getScheduleByID: 'schedules/getScheduleByID'
+      scheduleByID: 'schedules/SCHEDULE_BY_ID',
+
+      teachers: "teachers/TEACHERS",
+      disciplines: "disciplines/DISCIPLINES",
+      groups: "groups/GROUPS"
     }),
     getSchedule(){
-      return Object.assign({}, this.getScheduleByID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.scheduleByID(this.$route.params.id))
     },
   },
 
   methods: {
     ...mapActions({
-      editScheduleByID: 'schedules/editScheduleByID'
+      editScheduleByID: 'schedules/UPDATE_SCHEDULE'
     }),
 
     process() {

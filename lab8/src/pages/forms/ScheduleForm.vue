@@ -28,7 +28,7 @@
       <option value="">Teacher</option>
       <option
           v-for="teacher in teachers"
-          :value="teacher.id"
+          :value="teacher._id"
       >
         {{ teacher.name+" "+teacher.surname }}
       </option>
@@ -42,7 +42,7 @@
       <option value="">Discipline</option>
       <option
           v-for="discipline in disciplines"
-          :value="discipline.id"
+          :value="discipline._id"
       >
         {{ discipline.name }}
       </option>
@@ -56,7 +56,7 @@
       <option value="">Group</option>
       <option
           v-for="group in groups"
-          :value="group.id"
+          :value="group._id"
       >
         {{ group.name }}
       </option>
@@ -73,7 +73,7 @@
 <script>
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "ScheduleForm",
   components: {
@@ -122,22 +122,22 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      teachers: state => state.teachers.teachers,
-      disciplines: state => state.disciplines.disciplines,
-      groups: state => state.groups.groups
-    })
+     ...mapGetters({
+       teachers: "teachers/TEACHERS",
+       disciplines: "disciplines/DISCIPLINES",
+       groups: "groups/GROUPS"
+     })
   },
 
   methods: {
     ...mapActions({
-      addSchedule: 'schedules/addSchedule'
+      addSchedule: 'schedules/SAVE_SCHEDULE'
     }),
 
     process() {
       if (this.validateSchedule()) {
         this.addSchedule({...this.schedule});
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 

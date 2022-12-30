@@ -36,13 +36,13 @@ export default {
 
   methods: {
     ...mapActions({
-      addDiscipline: 'disciplines/addDiscipline'
+      addDiscipline: 'disciplines/SAVE_DISCIPLINE'
     }),
 
     process() {
       if(this.validateDiscipline()) {
         this.addDiscipline({...this.discipline});
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 

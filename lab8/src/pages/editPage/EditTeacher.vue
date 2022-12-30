@@ -1,7 +1,7 @@
 <template>
 
   <form action="" method="post" @submit.prevent>
-    <h2>Edit teacher: {{ getTeacherByID(getTeacher.id).name }}</h2>
+    <h2>Edit teacher: {{ teacherByID($route.params.id).name }}</h2>
     <custom-input
         placeholder="Name"
         type-validation="name"
@@ -68,20 +68,19 @@ export default {
       }
     }
   },
+
   computed:{
     ...mapGetters({
-      getTeacherByID: 'teachers/getTeacherByID'
+      teacherByID: 'teachers/TEACHER_BY_ID'
     }),
     getTeacher(){
-      return  Object.assign({}, this.getTeacherByID(parseInt(this.$route.params.id)))
+      return  Object.assign({}, this.teacherByID(this.$route.params.id))
     }
-
-
-
   },
+
   methods: {
     ...mapActions({
-      editTeacherByID: 'teachers/editTeacherByID'
+      editTeacherByID: 'teachers/UPDATE_TEACHER'
     }),
 
     process() {

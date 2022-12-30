@@ -14,7 +14,7 @@
       <tbody>
       <tr v-for="department in departments">
         <td>{{ department._id }}</td>
-        <td>{{ faculties.find( faculty => faculty._id===department.faculty_id).short_name }}</td>
+        <td>{{ facultyByID(department.faculty_id).short_name }}</td>
         <td>{{ department.name }}</td>
         <td>{{ department.short_name }}</td>
         <td>
@@ -44,7 +44,7 @@
 
 <script>
 import ActionsWithTables from "@/components/ActionsWithTables.vue";
-import {mapActions, mapGetters, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "DepartmentTable",
   components: {
@@ -61,7 +61,7 @@ export default {
   computed: {
     ...mapGetters({
       departments: 'departments/DEPARTMENTS',
-      faculties: 'faculties/FACULTIES'
+      facultyByID: 'faculties/FACULTY_BY_ID',
     })
   },
   methods: {

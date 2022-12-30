@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent>
-    <h2>Edit group: {{ getGroupByID(getGroup.id).name }}</h2>
+    <h2>Edit group: {{ groupByID($route.params.id).name }}</h2>
     <custom-input
         placeholder="Name"
         type-validation="name"
@@ -24,7 +24,7 @@
       <option value="">Department</option>
       <option
           v-for="department in departments"
-          :value="department.id"
+          :value="department._id"
       >
         {{department.short_name}}
       </option>
@@ -75,21 +75,18 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      departments: state => state.departments.departments
-    }),
-
     getGroup(){
-      return Object.assign({}, this.getGroupByID(parseInt(this.$route.params.id)))
+      return Object.assign({}, this.groupByID(this.$route.params.id))
     },
     ...mapGetters({
-        getGroupByID: 'groups/getGroupByID'
+        groupByID: 'groups/GROUP_BY_ID',
+        departments: 'departments/DEPARTMENTS'
     })
   },
 
   methods: {
     ...mapActions({
-      editGroupByID: "groups/editGroupByID"
+      editGroupByID: "groups/UPDATE_GROUP"
     }),
 
     process() {

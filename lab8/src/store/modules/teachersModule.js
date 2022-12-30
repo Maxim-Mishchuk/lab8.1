@@ -1,60 +1,64 @@
+import axios from "axios";
+
 export const teachersModule = {
     state: () => ({
-        teachers: [
-            {
-                id:124,
-                name: 'a',
-                surname: 'a',
-                email: 'a@a.com',
-                phone: 'a'
-            }
-        ]
+        teachers: []
     }),
 
     getters: {
-        getTeacherByID: state => id => {
-            return state.teachers.find(teacher => teacher.id===id)
+        TEACHER_BY_ID: state => id => {
+            return state.teachers.find(teacher => teacher._id===id);
+        },
+
+        TEACHERS: state => {
+            return state.teachers;
         }
     },
 
     mutations: {
-        addTeacher(state, teacher) {
-            let id;
-            if (state.teachers.length === 0) {
-                id = 0;
-            } else if (state.teachers.length > 0) {
-                id = state.teachers[state.teachers.length-1].id + 1;
-            }
-            teacher.id = id;
+        SET_TEACHERS: (state, teachers) => {
+            state.teachers = teachers
+        },
+
+        ADD_TEACHER: (state, teacher) => {
             state.teachers.push(teacher);
         },
 
-        deleteCheckedTeachers(state, checkedIDs) {
-            checkedIDs = checkedIDs.map(id => parseInt(id));
-            state.teachers = state.teachers
-                .filter(teacher => !checkedIDs.includes(teacher.id));
-        },
-
-        editTeacherByID(state, teacherForEdit) {
-            let teacher = state.teachers.find(teacher => teacher.id===teacherForEdit.id)
+        PUT_TEACHER: (state, teacherForEdit) => {
+            let teacher = state.teachers.find(teacher => teacher._id===teacherForEdit._id)
             teacher.name = teacherForEdit.name
             teacher.surname = teacherForEdit.surname
             teacher.email = teacherForEdit.email
             teacher.phone = teacherForEdit.phone
+        },
 
+        DELETE_TEACHER: (state, id) => {
+            state.teachers = state.teachers.filter(teacher => teacher._id !== id);
         }
     },
     actions: {
-        addTeacher({ commit }, teacher) {
-            commit('addTeacher', teacher);
+        GET_TEACHERS: async ({ commit }) => {
+            let { data } = await axios.get('http://localhost:5000/teachers/')
+            commit('SET_TEACHERS', data);
         },
 
-        deleteCheckedTeachers({ commit }, checkedIDs) {
-            commit('deleteCheckedTeachers', checkedIDs)
+        SAVE_TEACHER: async ({ commit }, teacher) => {
+            let {data} = await axios.post('http://localhost:5000/teachers/', teacher)
+            commit('ADD_TEACHER', teacher);
         },
 
-        editTeacherByID({commit}, teacherForEdit) {
-            commit('editTeacherByID', teacherForEdit)
+        UPDATE_TEACHER: async ({ commit }, teacher) => {
+            let {data} = await axios.put('http://localhost:5000/teachers/', teacher)
+            commit('PUT_TEACHER', teacher);
+        },
+
+        REMOVE_TEACHER: async ({ commit }, id) => {
+            let {data} = await axios.delete("http://localhost:5000/teachers/" + id)
+            commit('DELETE_TEACHER', id);
+        },
+
+        REMOVE_TEACHERS: async ({ commit, dispatch }, ids) => {
+            ids.forEach( id => dispatch('REMOVE_TEACHER', id) )
         }
     },
     namespaced: true

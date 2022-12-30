@@ -31,7 +31,7 @@
       <option value="">Group</option>
       <option
           v-for="group in groups"
-          :value="group.id"
+          :value="group._id"
       >
         {{ group.name }}
       </option>
@@ -48,7 +48,7 @@
 <script>
 import CustomInput from "@/components/CustomInput.vue";
 import MessageForm from "@/components/MessageForm.vue";
-import {mapActions, mapState} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: "StudentForm",
   components: {
@@ -86,20 +86,20 @@ export default {
   },
 
   computed: {
-    ...mapState({
-      groups: state => state.groups.groups
+    ...mapGetters({
+      groups: 'groups/GROUPS'
     })
   },
 
   methods: {
     ...mapActions({
-      addStudent: 'students/addStudent'
+      addStudent: 'students/SAVE_STUDENT'
     }),
 
     process() {
       if (this.validateStudent()) {
         this.addStudent({...this.student});
-        this.clearAllFields();
+        this.$router.go();
       }
     },
 
